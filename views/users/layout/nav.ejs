@@ -1,0 +1,159 @@
+
+
+    <!-- PAGE LOADING
+    ================================================== -->
+    <div id="preloader"></div>
+
+    <!-- MAIN WRAPPER
+    ================================================== -->
+    <div class="main-wrapper mp-pusher" id="mp-pusher">
+
+        <!-- HEADER
+        ================================================== -->
+        <header class="menu_area-light header-light-nav header-02">
+
+            <div class="navbar-default">
+
+                <!-- top search -->
+                <div class="top-search bg-primary">
+                    <div class="container-fluid">
+                        
+                            <div class="input-group">
+                                <span class="input-group-addon cursor-pointer">
+                                    <button class="search-form_submit fas fa-search display-27 text-white" type="submit"></button>
+                                </span>
+                                <input onkeyup="sendData(this)" type="text" class="search-form_input form-control" name="s" autocomplete="off" placeholder="Type here...">
+                                <span class="input-group-addon close-search"><i class="fas fa-times display-27 mt-2"></i></span>
+                            </div>
+                            <div id="searchResults" ></div>
+                            <!-- <section id="searchResults" style="width: fit-content; height: fit-content;"> -->
+
+                            </section>
+                        
+                    </div>
+                </div>
+                <!-- end top search -->
+
+                <div class="container">
+                    <div class="row align-items-center g-0">
+                        <div class="col-12 col-lg-12">
+                            <div class="menu_area alt-font">
+                                <nav class="navbar navbar-expand-lg navbar-light p-0">
+
+                                    <div class="navbar-header navbar-header-custom">
+                                        <!-- logo -->
+                                        <a href="/" class="navbar-brand logodefault"><img id="logo" src="/img/elite logo2.png" alt="logo"></a>
+                                        <!-- end logo -->
+                                    </div>
+
+                                    <!-- menu toggler -->
+                                    <div class="navbar-toggler"></div>
+                                    <!-- end menu toggler -->
+
+                                    <!-- menu area -->
+                                    <ul class="navbar-nav mx-auto" id="nav" style="display: none;">
+
+                                        <li><a href="/home">Home</a>
+                                            
+                                        </li>
+                                        <li><a href="/shop">Shop</a>
+                                            
+                                        </li>
+                                        <li><a href="/wishlist">Wishlist</a>
+                                            
+                                        </li>
+                                        <li><a href="#">Profile</a>
+                                            <ul>
+                                                
+                                                <li><a href="/profile">User Details</a></li>
+                                                <%if(user == true){ %>
+                                                    <li><a href="/logout">Log OUT</a></li>
+                                                    <% }else{ %>
+                                                        <li><a href="/login">Log In</a></li>
+                    
+                                                        <% } %>
+                                                
+                                                
+                                            </ul>
+                                        </li>
+                                                
+                                                
+                                            
+                                        
+                                    </ul>
+                                    <!-- end menu area -->
+
+                                    <!-- attribute navigation -->
+                                    <div class="attr-nav" id="cartCount">
+                                        <ul>
+                                            <%if(user == true){ %>
+                                            <li class="dropdown me-3 me-lg-0" >
+                                                <a href="/cart" class="" data-bs-toggle="">
+                                                    <i class="ti-bag"></i>
+                                                    <span class="badge bg-primary" > </span>
+                                                </a>
+                                                
+                                            </li>
+                                            <% }else{ %>
+                                                <li class="dropdown me-3 me-lg-0">
+                                                    <a href="/login" class="" data-bs-toggle="">
+                                                        <i class="ti-bag"></i>
+                                                        <span class="badge bg-primary"></span>
+                                                    </a>
+                                                </li>
+                                                <% } %>
+                                            <li class="search"><a href="#"><i class="ti-search"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- end attribute navigation -->
+
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+        <script>
+           function sendData(e){
+            const searchResults = document.getElementById('searchResults')
+            let match = e.value.match(/^[a-zA-Z]*/)
+            let match2= e.value.match(/\s*/)
+            if(match2[0]==e.value){
+                searchResults.innerHTML='';
+                return
+            }
+            if(match[0]==e.value){
+                fetch('getProducts',{
+                method:'POST',
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify({payload:e.value})
+
+            }).then(res => res.json()).then(data => {
+
+            let search=data.search;
+            
+            searchResults.innerHTML='';
+
+            if(search.length < 1){
+                searchResults.innerHTML='<h5 style="color: white;"> sorry item not found</h5>';
+                    return;
+            }
+            search.forEach((item,index)=>{
+
+                if(index > 0)searchResults.innerHTML += '<hr>';
+
+                searchResults.innerHTML += `<div onclick="window.location.href='/single-product/${item._id}'"class="d-flex"><img src="/products/${item.image[0]}" width="100px" alt=""><h5>${item.product_name}</h5></div>`
+
+                })
+            });
+        
+                return
+            }
+
+            searchResults.innerHTML='';
+        }
+        </script>

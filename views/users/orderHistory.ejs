@@ -1,0 +1,195 @@
+<%-include('./layout/header.ejs')%>
+    
+    <!-- User profile section -->
+    <section class="ec-page-content ec-vendor-uploads ec-user-account section-space-p">
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar Area Start -->
+                <div class="ec-shop-leftside ec-vendor-sidebar col-lg-3 col-md-12">
+                    <div class="ec-sidebar-wrap">
+                        Sidebar Category Block
+                        <div class="ec-sidebar-block">
+                            <div class="ec-vendor-block">
+                                <!-- <div class="ec-vendor-block-bg"></div>
+                                <div class="ec-vendor-block-detail">
+                                    <img class="v-img" src="/images/user/1.jpg" alt="vendor image">
+                                    <h5>Mariana Johns</h5>
+                                </div> -->
+                                <div class="ec-vendor-block-items">
+                                    <ul>
+                                        <li><a href="/profile">User Profile</a></li>
+                                        <li><a href="/address">Addresses</a></li>
+                                        <!-- <li><a href="/wishlist">Wishlist</a></li> -->
+                                        <li><a href="/cart">Cart</a></li>
+                                        <li><a href="/checkout">Checkout</a></li>
+                                        <!-- <li><a href="/orders">Orders</a></li> -->
+
+
+                                    </ul>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="ec-shop-rightside col-lg-9 col-md-12">
+                    <div class="ec-vendor-dashboard-card ec-vendor-setting-card">
+                        <div class="table-responsive">
+                            <table class="table" style="text-align: left;">
+                                <thead>
+                                    <tr>
+
+                                        <th>Order</th>
+                                        <th>Products</th>
+                                        <th>Address</th>
+                                        <th>Date</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <% if (orderedData.length <= 0) { %>
+
+                                            <td colspan="8">
+                                                <h3 style="color: brown;">You Haven't Ordered Yet</h3>
+                                            </td>
+                                            <% } else { %>
+                                                <% for (let i=0; i < orderedData.length; i++) { %>
+                                    <tr>
+
+                                        <td rowspan="<%= orderedData[i].items.length %>">
+                                            <%= orderedData[i].orderId %>
+                                        </td>
+                                        <% orderedData[i].items.forEach((val, index)=> { %>
+                                            <% if (index> 0) { %>
+                                    </tr>
+                                    <tr>
+                                        <% } %>
+                                            <td>
+                                                <%= val.name %>
+                                            </td>
+                                            <% }) %>
+                                                <td rowspan="1">
+                                                    <%= orderedData[i].address.name %><br>
+                                                    <%= orderedData[i].address.mobile %><br>
+                                                    <%= orderedData[i].address.address %>
+                                                    <%= orderedData[i].address.house_no %>
+                                                    <%= orderedData[i].address.place %>
+                                                    <%= orderedData[i].address.pincode %>
+                                                    <%= orderedData[i].address.state %> <br>
+                                                                       
+                                                                            
+                                                </td>
+                                                <td rowspan="1">
+                                                    <%= orderedData[i].date.toLocaleString('en-US', { day: '2-digit' ,
+                                                        month: '2-digit' , year: 'numeric' }) %>
+                                                </td>
+                                                <td rowspan="1">
+                                                    <%= orderedData[i].totalAmount %>
+                                                </td>
+
+
+                                                <td rowspan="1">
+                                                    <p>
+                                                        <%= orderedData[i].orderStatus %>
+                                                    </p>
+                                                </td>
+
+                                                <% if (orderedData[i].orderStatus=="delivered" &&
+                                                    orderedData[i].expireStatus==="expired" ) { %>
+                                                    <td rowspan="1">
+                                                        <p><b style="color: brown;">Return Not <br> Available</b></p>
+                                                    </td>
+                                                    <% } else if (orderedData[i].orderStatus=="delivered" ) { %>
+                                                        <td rowspan="1">
+                                                            <a href="/returnRequested?id=<%= orderedData[i]._id %>">
+                                                                <button class="btn-sm btn-danger">return order</button>
+                                                            </a>
+                                                        </td>
+                                                        <% } else if (orderedData[i].orderStatus=="return requested" ) {
+                                                            %>
+                                                            <td rowspan="1">
+                                                                <a
+                                                                    href="/cancelreturnRequested?id=<%= orderedData[i]._id %>">
+                                                                    <button class="btn-sm btn-danger">cancel
+                                                                        request</button>
+                                                                </a>
+                                                            </td>
+                                                            <% } else if (orderedData[i].orderStatus=="Return Accepted"
+                                                                ) { %>
+                                                                <td rowspan="1">
+                                                                    <p><b
+                                                                        style="color: rgb(26, 112, 17);">Return <br>
+                                                                        Success </b></p>
+                                                                </td>
+                                                                <% } else if (orderedData[i].expireStatus=="expired" &&
+                                                                    orderedData[i].orderStatus==="Cancelled" ) { %>
+                                                                    <td rowspan="1">
+
+                                                                    </td>
+                                                                    <% } else if (
+                                                                        orderedData[i].orderStatus=="Cancelled" ) { %>
+                                                                            <td rowspan="1">
+                                                                                <p><b style="color: brown;">Order <br>Cancelled </b></p>
+                                                                            </td>
+
+                                                                        <% } else if ( orderedData[i].
+                                                                            orderStatus=="Return rejected" ) { %>
+                                                                            <td rowspan="1">
+                                                                                <p><b style="color: brown;">Return
+                                                                                        Rejected </b></p>
+                                                                            </td>
+                                                                            <% } else if ( orderedData[i].
+                                                                                orderStatus=="Return Accepted" ) { %>
+                                                                                <td rowspan="1">
+                                     `                                               <p><b
+                                                                                            style="color: rgb(26, 112, 17);">Return
+                                                                                            Success </b></p>
+                                                                                </td>
+                                                                                <% } else if ( orderedData[i].
+                                                                                    orderStatus=="shipped" ) { %>
+                                                                                    <td rowspan="1">
+                                                                                        <a
+                                                                                            href="/cancelRequest?id=<%= orderedData[i]._id %>">
+                                                                                            <button
+                                                                                                class="btn-sm btn-danger">cancel
+                                                                                                order</button>
+                                                                                        </a>
+                                                                                    </td>
+                                                                                    <% } else { %>
+                                                                                        <td rowspan="1">
+
+                                                                                            <a
+                                                                                                href="/cancelRequest?id=<%= orderedData[i]._id %>">
+                                                                                                <button
+                                                                                                    class="btn-sm btn-danger">cancel
+                                                                                                    order</button>
+                                                                                            </a>
+                                                                                        </td>
+                                                                                        <% } %>
+                                    </tr>
+                                    <% } %>
+                                        <% } %>
+                                            </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <!-- Modal -->
+
+    <!-- End User profile section -->
+
+    
+    <%-include('./layout/footer.ejs')%>

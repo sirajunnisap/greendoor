@@ -4,34 +4,30 @@ const Product = require('../models/productsModel');
 const { productDetail } = require('./product');
 const mongoose = require('mongoose');
 const { ObjectId } = require('mongodb')
+const Category = require('../models/categoryModel')
 // const mongoose = require('mongoose')
 
 
 const showCart = async (req, res) => {
     try {
-        console.log("showing cart");
+       
         const userId = req.session.userId
-        console.log(userId);
-        const usersir = await User.findOne({ _id: userId })
-        console.log(usersir);
+        const user = await User.findOne({ _id: userId })
         const userTemp = req.session.userId
-        console.log(userTemp);
         const usercart = await User.aggregate([{ $match: { _id: new ObjectId(userTemp) } }, { $unwind: '$cart' }, { $group: { _id: null, totalcart: { $sum: '$cart.productTotalPrice' } } }])
         console.log(usercart);
         if (usercart.length > 0) {
             const cartTotal = usercart[0].totalcart
-            console.log(cartTotal, "9");
             const cartTotalUpdate = await User.updateOne({ _id: userId }, { $set: { cartTotalPrice: cartTotal } })
-            console.log(cartTotalUpdate);
             const userData = await User.findOne({ _id: userId }).populate('cart.productId').exec()
-            console.log(userData);
-            res.render('cart', { userData })
+            const category = await Category.find()
+            res.render('cart', { userData ,category,user})
         } else {
             const userData = await User.findOne({ userId })
-            res.render('cart', { userData })
+            const category = await Category.find()
+            res.render('cart', { userData,category ,user})
         }
-        // const product = await Product.find()
-        // res.render('cart',{product})
+        
     } catch (error) {
         console.log(error.message);
     }

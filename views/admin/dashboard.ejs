@@ -1,42 +1,4 @@
-
-<!-- --------------------- -->
-<!-- dashboard -->
-<!DOCTYPE html>
-<html lang="en">
-
-
-<!-- Mirrored from smartshop.websitelayout.net/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:16 GMT -->
-<head>
-    <!-- metas -->
-    <meta charset="utf-8" />
-    <meta name="author" content="Chitrakoot Web" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="keywords" content="admin,dashboard" />
-    <meta name="description" content="Smartshop - Responsive eCommerce Admin Dashboard" />
-
-    <!-- title  -->
-    <title>Smartshop - Responsive eCommerce Admin Dashboard</title>
-
-    <!-- favicon -->
-    <link rel="shortcut icon" href="/admin/img/logos/favicon.png" />
-    <link rel="apple-touch-icon" href="/admin/img/logos/apple-touch-icon-57x57.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="/admin/img/logos/apple-touch-icon-72x72.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="/admin/img/logos/apple-touch-icon-114x114.png" />
-
-    <!-- common plugins -->
-    <link rel="stylesheet" href="/admin/plugins/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/admin/plugins/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="/admin/plugins/icomoon/style.css" />
-    <link rel="stylesheet" href="/admin/plugins/uniform/css/default.css" />
-    <link rel="stylesheet" href="/admin/plugins/switchery/switchery.min.css" />
-
-    <!-- theme core css -->
-    <link rel="stylesheet" href="/admin/css/styles.css" />
-
-</head>
-
-<body>
+<%- include('./layout/header.ejs') %>
 
     <!-- PAGE LOADING
     ================================================== -->
@@ -57,8 +19,8 @@
             <div class="page-sidebar-inner">
                 <div class="page-sidebar-menu">
                     <ul class="accordion-menu">
-                        <li>
-                            <a href="/dashboard"> <i class="menu-icon icon-home4"></i><span>Dashboard</span> </a>
+                        <li class="active">
+                            <a href="/admin/dashboard"> <i class="menu-icon icon-home4 "></i><span >Dashboard</span> </a>
                         </li>
                         <li>
                             <a href="#">
@@ -84,7 +46,7 @@
                                 <i class="menu-icon icon-flash_on"></i><span>Orders</span><i class="accordion-icon fa fa-angle-left"></i>
                             </a>
                             <ul>
-                                <li><a href="/admin/list-orders">Orders</a></li>
+                                <li><a href="/admin/orders">Orders</a></li>
                                 <li><a href="/admin/order-details">Order Details</a></li>
                             </ul>
                         </li>
@@ -92,15 +54,28 @@
                             <a href="/admin/list-users"> <i class="menu-icon icon-code"></i><span>Customers</span> </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="/admin/coupon">
                                 <i class="menu-icon icon-format_list_bulleted"></i><span>Coupons</span><i class="accordion-icon fa fa-angle-left"></i>
                             </a>
-                            <ul>
+                            <!-- <ul>
                                 <li><a href="/admin/list-coupons">Coupons</a></li>
-                                <li><a href="/admin/create-coupons">Create Coupons</a></li>
-                            </ul>
+                                 <li><a href="/admin/create-coupons">Create Coupons</a></li> 
+                            </ul> -->
                         </li>
-                        
+                        <li>
+                            <a href="#">
+                                <i class="menu-icon icon-layers"></i><span>Banner</span><i class="accordion-icon fa fa-angle-left"></i>
+                            </a>
+                            <ul>
+                                <li><a href="/admin/list-banner">Banner</a></li>
+                                
+                                <li><a href="/admin/add-banner">Add Banner>
+                            </ul>
+
+                        </li>
+                        <li>
+                            <a href="/admin/sales-report"> <i class="menu-icon icon-code"></i><span>Sales Report</span> </a>
+                        </li>
                         <li class="menu-divider"></li>
                         <li>
                             <a href="#"> <i class="menu-icon icon-public"></i><span>Logout</span> </a>
@@ -402,11 +377,108 @@
                             </div>
                         </div>
                     </div>
+
+                    
+
+        <!-- Doughnut Chart -->
+        <br><br>
+        <br><br>
+        <br><br>
+
+        <canvas id="doughnutChart" style="max-height: 400px;"></canvas>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                new Chart(document.querySelector('#doughnutChart'), {
+
+                    type: 'doughnut',
+
+                    data: {
+                        labels: [
+                            'ONLINE',
+                            'COD',
+                            'WALLET'
+                        ],
+
+                        datasets: [{
+                            label: '',
+                            data: ['<%= online%>', '<%= cod%>', '<%= wallet%>'],
+                            backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(54, 162, 235)',
+                                'rgb(255, 205, 86)'
+                            ],
+                            hoverOffset: 4
+                        }]
+                    }
+                });
+            });
+        </script>
+        <!-- End Doughnut CHart -->
+
+
+        <!-- bar chart -->
+        <div class="card" style="background: white;">
+            <br><br>
+            <br><br>
+            <br><br>
+            <br><br>
+            <div class="card-body">
+                <h5 class="card-title">Sales Chart</h5>
+
+                <!-- Bar Chart -->
+                <canvas id="barChart" style="max-height: 600px; width: 100%;"></canvas>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                        new Chart(document.querySelector('#barChart'), {
+                            type: 'line',
+                            data: {
+                                labels: ['<%=date[0]%>', '<%=date[1]%>', '<%=date[2]%>', '<%=date[3]%>', '<%=date[4]%>', '<%=date[5]%>', '<%=date[6]%>'],
+                                datasets: [{
+                                    label: 'Daily sales',
+                                    data: ["<%=Sales[0]%>", "<%=Sales[1]%>", "<%=Sales[2]%>", "<%=Sales[3]%>", "<%=Sales[4]%>", "<%=Sales[5]%>", "<%=Sales[6]%>"],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)',
+                                        'rgba(255, 205, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgb(255,255,255)',
+                                        'rgba(201, 203, 207, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgb(255,255,255)',
+                                        'rgb(255,255,255)',
+                                        'rgb(255,255,255)',
+                                        'rgb(255,255,255)',
+                                        'rgb(255,255,255)',
+                                        'rgb(255,255,255)',
+                                        'rgb(255,255,255)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+                    });
+                </script>
+                <!-- End Bar CHart -->
+            </div>
+        </div>
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
                     <!-- end row -->
 
                     <!-- row -->
-                    <div class="row">
-                        <div class="col-lg-6 col-xl-4 half-gutter grid-margin">
+                    <!-- <div class="row"> -->
+                        <!-- <div class="col-lg-6 col-xl-4 half-gutter grid-margin">
                             <div class="card card-white mb-3">
                                 <div class="card-heading clearfix">
                                     <h4 class="card-title">Social Source</h4>
@@ -533,11 +605,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- end row -->
 
                     <!-- row -->
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-md-12 grid-margin">
                             <div class="card card-white h-100">
                                 <div class="card-heading clearfix">
@@ -734,33 +806,33 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- end row -->
 
-                </div>
+                <!-- </div>
 
                 <div class="page-footer">
                     <p>Copyright &copy; <span class="current-year"></span> Smartshop All rights reserved.</p>
                 </div>
-            </div>
+            </div> -->
 
             <!-- PAGE MAIN RIGHT SIDEBAR
             ================================================== -->
-            <div class="page-right-sidebar" id="main-right-sidebar">
+            <!-- <div class="page-right-sidebar" id="main-right-sidebar">
                 <div class="page-right-sidebar-inner">
                     <div class="right-sidebar-top">
-                        <div class="right-sidebar-tabs">
+                        <div class="right-sidebar-tabs"> -->
                             <!-- Nav tabs -->
-                            <ul class="nav nav-tabs" role="tablist">
+                            <!-- <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="active" id="chat-tab"><a href="#chat" aria-controls="chat" role="tab" data-bs-toggle="tab">chat</a></li>
                                 <li role="presentation" id="settings-tab"><a href="#settings" aria-controls="settings" role="tab" data-bs-toggle="tab">settings</a></li>
                             </ul>
                         </div>
                         <a href="#" class="right-sidebar-toggle right-sidebar-close" data-sidebar-id="main-right-sidebar"><i class="icon-close"></i></a>
                     </div>
-                    <div class="right-sidebar-content">
+                    <div class="right-sidebar-content"> -->
                         <!-- start tab panes -->
-                        <div class="tab-content">
+                        <!-- <div class="tab-content">
                             <div class="tab-pane active" id="chat">
                                 <div class="chat-list">
                                     <span class="chat-title">Recent</span>
@@ -860,12 +932,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div> -->
+            <!-- </div> -->
 
             <!-- PAGE CHAT RIGHT SIDEBAR
             ================================================== -->
-            <div class="page-right-sidebar" id="chat-right-sidebar">
+            <!-- <div class="page-right-sidebar" id="chat-right-sidebar">
                 <div class="page-right-sidebar-inner">
                     <div class="right-sidebar-top">
                         <div class="chat-top-info">
@@ -918,53 +990,12 @@
 
         </div>
 
-    </div>
+    </div> -->
 
     <!-- BUY TEMPLATE
     ================================================== -->
-    <div class="buy-theme alt-font d-none d-lg-inline-block"><a href="https://wrapbootstrap.com/theme/smartshop-multipurpose-ecommerce-template-WB0N7CT4D" target="_blank"><i class="fas fa-cart-plus"></i><span>Buy Template</span></a></div>
+    <!-- <div class="buy-theme alt-font d-none d-lg-inline-block"><a href="https://wrapbootstrap.com/theme/smartshop-multipurpose-ecommerce-template-WB0N7CT4D" target="_blank"><i class="fas fa-cart-plus"></i><span>Buy Template</span></a></div>
 
     <div class="all-demo alt-font d-none d-lg-inline-block"><a href="https://www.chitrakootweb.com/contact.html" target="_blank"><i class="far fa-envelope"></i><span>Quick Question?</span></a></div>
-    
-    <!-- SCROLL TO TOP
-    ================================================== -->
-    <a href="#" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
-
-    <!-- ALL JS INCLUDE
-    ================================================== -->
-
-    <!-- jQuery -->
-    <script src="/admin/plugins/jquery/jquery.min.js"></script>
-
-    <!-- popper -->
-    <script src="/admin/plugins/popper/js/popper.min.js"></script>
-
-    <!-- bootstrap -->
-    <script src="/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- slimscroll -->
-    <script src="/admin/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-
-    <!-- uniform -->
-    <script src="/admin/plugins/uniform/js/jquery.uniform.standalone.js"></script>
-
-    <!-- switchery -->
-    <script src="/admin/plugins/switchery/switchery.min.js"></script>
-
-    <!-- apex chart -->
-    <script src="/admin/plugins/apexcharts/apexcharts.js"></script>
-
-    <!-- chart js -->
-    <script src="/admin/js/pages/chart.js"></script>
-
-    <!-- theme core scripts -->
-    <script src="/admin/js/main.js"></script>
-
-    <!-- all js include end -->
-</body>
-
-
-<!-- Mirrored from smartshop.websitelayout.net/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:28 GMT -->
-</html>
-
-
+     -->
+    <%- include('./layout/footer.ejs') %>

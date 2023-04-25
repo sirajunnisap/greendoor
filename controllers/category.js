@@ -16,7 +16,7 @@ const listcategories = async(req,res)=>{
 const loadAddCategories = async(req,res)=>{
     try {
 
-        const user = await User.findOne({_id : req.session.admin})
+        const user= await User.findOne({_id : req.session.admin})
         res.render('add-category',{user})
     } catch (error) {
         console.log(error.message);
@@ -103,6 +103,8 @@ const updateCategory = async(req,res)=>{
         console.log(error.message);
     }
 }
+
+
 
 // const deleteCatagories = async(req,res)=>{
 //     try {

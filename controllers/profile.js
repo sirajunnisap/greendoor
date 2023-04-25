@@ -3,11 +3,11 @@ const User = require('../models/userModel')
 const showProfile = async(req,res)=>{
     try {
         
-         const userId = req.session.userId
-         console.log(userId);
-            const userData = await User.findOne({_id : userId})
+         const user = req.session.userId
+         console.log(user);
+            const userData = await User.findOne({_id : user})
            console.log(userData);
-            res.render('profile',{userData})
+            res.render('profile',{userData,user})
             
        
     } catch (error) {
@@ -72,7 +72,6 @@ const add_address = async (req, res) => {
             })
         }
        
-
         res.redirect('/address')
 
 

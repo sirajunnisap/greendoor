@@ -46,7 +46,7 @@ const insertUser = async(req,res)=>{
         // image : req.file.filename,
         password : spassword,
         is_admin : 0,
-        block : true
+        block : false
        })
 
        const userData = await user.save();
@@ -218,6 +218,7 @@ const loadHome = async(req,res)=>{
             const userId = req.session.userId
             const userData = await User.findOne({_id : userId})
             const category = await Category.find({})
+            console.log(category);
             const product = await Product.find({unlist:true})
             const user = true
             res.render('home',{userData,user,product,category})
@@ -231,7 +232,8 @@ const loadHome = async(req,res)=>{
 
 const loadProducts = async(req,res)=>{
     try {
-        res.render('products')
+        const category = await Category.find()
+        res.render('products',{category})
     } catch (error) {
         console.log(error.message);
     }
@@ -240,7 +242,8 @@ const loadProducts = async(req,res)=>{
 
 const loadProduct_single = async(req,res)=>{
     try{
-        res.render('product-detail')
+        const category = await Category.find()
+        res.render('product-detail',{category})
     }catch(error){
         console.log(error.message);
     }
@@ -278,7 +281,106 @@ const loadPasswordRecovery = async(req,res)=>{
     }
 } 
 
+const searchProducts = async(req,res)=>{
+    try {
 
+        let payload = req.body.payload.trim()
+        console.log("gate4 = " +payload)
+
+        let search =await Product.find({name:{$regex:new RegExp('^'+payload+'.*','i')}}).exec()
+        console.log(search);
+        search=search.slice(0,10)
+        res.send({search})
+
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+const loadShop = async (req, res) => {
+    try {
+      const category = req.query.categoryId;
+      const search = req.query.search || "";
+      const sort = req.query.sort || "";
+      console.log(category + " - " + search + " - " + sort);
+      let isRender = false;
+      let user = false
+      if(req.session.userId){
+        user=true
+      }
+      if (req.query.isRender) {
+        isRender = true;
+      }
+  
+      const searchData = new String(search).trim();
+  
+      const query = {
+        is_delete: false,
+      };
+  
+      let sortQuery = { price: 1 };
+      if (sort == "high-to-low") {
+        sortQuery = { price: -1 };
+      }
+  
+      if (search) {
+        query["$or"] = [
+          { product_name: { $regex: ".*" + searchData + ".*", $options: "i" } },
+        //   { description: { $regex: searchData, $options: "i" } },
+        ];
+      }
+      console.log(category);
+      if (category) {
+ 
+            query["$or"] = [{ category: category }];
+        
+      }
+  
+      const product = await Product.find(query).sort(sortQuery);
+  
+      //console.log(product);
+  
+      const productsPerPage = 3;
+      const page = req.query.page || 1;
+      const startIndex = (page - 1) * productsPerPage;
+      const endIndex = startIndex + productsPerPage;
+      const pageProducts = product.slice(startIndex, endIndex);
+      const totalPages = Math.ceil(product.length / productsPerPage);
+      
+      // -----------Category finding
+      const categoryData = await Category.find({});
+      
+  
+      // ----------------------
+  
+      if (isRender == true) {
+        res.json({
+          pageProducts,
+          totalPages,
+          currentPage: parseInt(page, 10),
+          product,
+          user,
+          // cartCount,
+          // wishListCount
+        });
+      } else {
+        res.render("/shop", {
+          pageProducts,
+          totalPages,
+          currentPage: parseInt(page, 10),
+          product,
+          categoryData,
+          user,
+        });
+      }
+    } catch (error) {
+        res.render('users/500')
+      console.log(error.message);
+      console.log("------------------Product Page Section-----------");
+    }
+  };
 
 
 module.exports={
@@ -297,6 +399,8 @@ module.exports={
     loadPasswordRecovery,
     landingPage,
     loadLogout,
+    searchProducts,
+    loadShop
     // findCategoryProduct
 }
 

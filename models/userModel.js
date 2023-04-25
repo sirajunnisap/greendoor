@@ -53,8 +53,7 @@ const userSchema = new mongoose.Schema({
         }
     }],
     cartTotalPrice:{
-        type:Number,
-        // default:0
+        type:Number
     },
     address : [{
         name : {
@@ -89,9 +88,18 @@ const userSchema = new mongoose.Schema({
             type : Boolean,
             required : true
         }
+    }],
+    wallet:{
+        type:Number,
+    },
+    wishlist : [{
+        productId : {
+            type : mongoose.Types.ObjectId,
+            ref : 'Product',
+            required : true
+        },
     }]
-    
-})
+},{ timestamps: true })
 
 
 

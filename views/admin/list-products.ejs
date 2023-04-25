@@ -1,42 +1,6 @@
+<%- include('./layout/header.ejs') %>
 
-
-<!-- --------------------------- -->
-<!-- userdetais -->
-<!DOCTYPE html>
-<html lang="en">
-
-<!-- Mirrored from smartshop.websitelayout.net/admin/customers.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:01:00 GMT -->
-<head>
-    <!-- metas -->
-    <meta charset="utf-8" />
-    <meta name="author" content="Chitrakoot Web" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="keywords" content="admin,dashboard" />
-    <meta name="description" content="Smartshop - Responsive eCommerce Admin Dashboard" />
-
-    <!-- title  -->
-    <title>Smartshop - Responsive eCommerce Admin Dashboard</title>
-
-    <!-- favicon -->
-    <link rel="shortcut icon" href="img/logos/favicon.png" />
-    <link rel="apple-touch-icon" href="img/logos/apple-touch-icon-57x57.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="img/logos/apple-touch-icon-72x72.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="img/logos/apple-touch-icon-114x114.png" />
-
-    <!-- common plugins -->
-    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="plugins/icomoon/style.css" />
-    <link rel="stylesheet" href="plugins/uniform/css/default.css" />
-    <link rel="stylesheet" href="plugins/switchery/switchery.min.css" />
-
-    <!-- theme core css -->
-    <link rel="stylesheet" href="css/styles.css" />
-
-</head>
-
-<body>
+    
     <!-- PAGE LOADING
     ================================================== -->
     <div id="preloader"></div>
@@ -49,7 +13,7 @@
         ================================================== -->
         <div class="page-sidebar">
             <a class="logo-box" href="index.html">
-                <img src="../img/logos/logo-footer.png" alt="...">
+                <img src="../users/img/logos/logo-footer.png" alt="...">
                 <i class="icon-radio_button_unchecked" id="fixed-sidebar-toggle-button"></i>
                 <i class="icon-close" id="sidebar-toggle-button-close"></i>
             </a>
@@ -57,26 +21,26 @@
                 <div class="page-sidebar-menu">
                     <ul class="accordion-menu">
                         <li>
-                            <a href="index.html"> <i class="menu-icon icon-home4"></i><span>Dashboard</span> </a>
+                            <a href="/admin/dashboard"> <i class="menu-icon icon-home4"></i><span>Dashboard</span> </a>
                         </li>
                         <li>
                             <a href="#">
-                                <i class="menu-icon icon-inbox"></i><span>Category</span><i class="accordion-icon fa fa-angle-left"></i>
+                                <i class="menu-icon icon-inbox "></i><span>Category</span><i class="accordion-icon fa fa-angle-left active"></i>
                             </a>
                             <ul>
-                                <li><a href="category.html">Category</a></li>
-                                <li><a href="add-categories.html">Add Categories</a></li>
+                                <li><a href="/admin/list-categories">Category</a></li>
+                                <li><a href="/admin/add-category">Add Categories</a></li>
                             </ul>
                         </li>
-                        <li>
+                        <li class="active">
+                        
                             <a href="#">
                                 <i class="menu-icon icon-layers"></i><span>Products</span><i class="accordion-icon fa fa-angle-left"></i>
                             </a>
                             <ul>
-                                <li><a href="products.html">Products</a></li>
-                                <li><a href="product-details.html">Product Details</a></li>
-                                <li><a href="product-cart.html">Product Cart</a></li>
-                                <li><a href="add-products.html">Add Products</a></li>
+                                <li><a href="/admin/list-products">Products</a></li>
+                                
+                                <li><a href="/admin/add-products">Add Products</a></li>
                             </ul>
                         </li>
                         <li>
@@ -84,32 +48,23 @@
                                 <i class="menu-icon icon-flash_on"></i><span>Orders</span><i class="accordion-icon fa fa-angle-left"></i>
                             </a>
                             <ul>
-                                <li><a href="orders.html">Orders</a></li>
-                                <li><a href="order-details.html">Order Details</a></li>
+                                <li><a href="/admin/list-orders">Orders</a></li>
+                                <li><a href="/admin/order-details">Order Details</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="customers.html"> <i class="menu-icon icon-code"></i><span>Customers</span> </a>
+                            <a href="/admin/list-users"> <i class="menu-icon icon-code"></i><span>Customers</span> </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="/admin/coupon">
                                 <i class="menu-icon icon-format_list_bulleted"></i><span>Coupons</span><i class="accordion-icon fa fa-angle-left"></i>
                             </a>
-                            <ul>
-                                <li><a href="coupons.html">Coupons</a></li>
-                                <li><a href="create-coupons.html">Create Coupons</a></li>
-                            </ul>
+                            <!-- <ul>
+                                <li><a href="/admin/list-coupons">Coupons</a></li>
+                                 <li><a href="/admin/create-coupons">Create Coupons</a></li> 
+                            </ul> -->
                         </li>
-                        <li>
-                            <a href="#">
-                                <i class="menu-icon icon-settings"></i><span>Settings</span><i class="accordion-icon fa fa-angle-left"></i>
-                            </a>
-                            <ul>
-                                <li><a href="staff-members.html">Staff Members</a></li>
-                                <li><a href="add-staff-member.html">Add Staff Members</a></li>
-                                <li><a href="site-settings.html">Site Settings</a></li>
-                            </ul>
-                        </li>
+                        
                         <li class="menu-divider"></li>
                         <li>
                             <a href="#"> <i class="menu-icon icon-public"></i><span>Logout</span> </a>
@@ -285,6 +240,7 @@
                                                     <td> <% if( value.quantity > 2){ %>
                                                         <p style="color: green">In stock</p>
                                                     <% }else if(value.quantity <=0){ %>
+                                                        
                                                         <p style="color: red;">out of stock </p>
                                                         <% }else{ %>
                                                             <p style="color: rgb(255, 106, 0);">few more left</p>
@@ -509,37 +465,4 @@
 
     <div class="all-demo alt-font d-none d-lg-inline-block"><a href="https://www.chitrakootweb.com/contact.html" target="_blank"><i class="far fa-envelope"></i><span>Quick Question?</span></a></div>
     
-    <!-- SCROLL TO TOP
-    ================================================== -->
-    <a href="#" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
-
-    <!-- ALL JS INCLUDE
-    ================================================== -->
-
-    <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
-
-    <!-- popper -->
-    <script src="plugins/popper/js/popper.min.js"></script>
-
-    <!-- bootstrap -->
-    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- slimscroll -->
-    <script src="plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-
-    <!-- uniform -->
-    <script src="plugins/uniform/js/jquery.uniform.standalone.js"></script>
-
-    <!-- switchery -->
-    <script src="plugins/switchery/switchery.min.js"></script>
-
-    <!-- theme core scripts -->
-    <script src="js/main.js"></script>
-
-    <!-- all js include end -->
-</body>
-
-
-<!-- Mirrored from smartshop.websitelayout.net/admin/customers.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:01:00 GMT -->
-</html>
+    <%- include('./layout/footer.ejs') %>

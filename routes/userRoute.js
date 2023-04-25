@@ -14,7 +14,7 @@ user_route.use(session({
     secret : config.sessionSecret,
     saveUninitialized : true,
     resave : false,
-    cookie : {maxAge : 500000} 
+    cookie : {maxAge : 500000*100000} 
 }));
 
 user_route.use(nocache());
@@ -46,7 +46,9 @@ const auth = require('../middleware/auth')
 const userController = require('../controllers/userController');
 const cartController = require('../controllers/cart');
 const productController = require('../controllers/product');
-const profileController = require('../controllers/profile')
+const profileController = require('../controllers/profile');
+const orderController = require('../controllers/orders');
+const wishlistController = require('../controllers/wishlist');
 
 user_route.get('/register',userController.loadRegister);
 user_route.post('/register',upload.single('image'),userController.insertUser);
@@ -68,7 +70,8 @@ user_route.post('/login',userController.verifyLogin);
 
 user_route.get('/logout',userController.loadLogout)
 
-
+//Search.....
+user_route.post('/getProducts',userController.searchProducts)
 
 // //categotyManagement
 
@@ -76,10 +79,18 @@ user_route.get('/logout',userController.loadLogout)
 // user_route.get('/ctrypdt',userController.findCategoryProduct);
 
 //product
-// user_route.get('/products',productController.product_view);
+// // user_route.get('/products',productController.product_view);
 user_route.get('/products',productController.loadProducts)
 user_route.get('/productDetails/:id',productController.productDetail);
 user_route.get('/shopCategory/:id',productController.loadShopCategory);
+// user_route.get('/products',productController.viewProduct);
+
+
+//wishlist
+user_route.get('/wishlist',wishlistController.loadWishlist);
+user_route.post('/addToWishlist',wishlistController.addToWishlist);
+user_route.post('/deleteWishlist',wishlistController.deleteWishlistPdct);
+// user_route.post('/wishlistToCart',productController.wishlistToCart);
 
 // //cart
 user_route.get('/cart',auth.isLogin,cartController.showCart);
@@ -93,13 +104,25 @@ user_route.get('/profile',auth.isLogin,profileController.showProfile);
 user_route.post('/updateUserData',auth.isLogin,profileController.updateUserData)
 
 
+
+
 user_route.get('/address',profileController.showAddress);
 user_route.post('/add_Address',profileController.add_address);
 user_route.post('/delete_address',profileController.deleteAddress);
 user_route.post('/edit-address',profileController.edit_address);
 
 
-user_route.get('/checkout',)
+user_route.get('/checkout',orderController.loadCheckout);
+user_route.post('/add_address',orderController.add_address);
+user_route.post('/coupon-apply',orderController.couponApply);
+user_route.post('/place_order',orderController.place_order);
+user_route.post('/verify-payment',orderController.verifyPayment)
+user_route.get('/ordersuccess',orderController.orderSuccess);
+user_route.get('/orderHistory',orderController.orderHistory);
+user_route.get('/returnRequested',orderController.returnRequest)
+user_route.get('/cancelreturnRequested',orderController.cancelReturnRequest)
+user_route.get('/cancelRequest',orderController.cancelRequest)
+
 
 // user_route.get('*', (req,res)=>{
 //     res.render('404-page',{message : "this page is not found"})
