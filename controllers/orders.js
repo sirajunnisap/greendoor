@@ -155,17 +155,20 @@ const place_order = async(req,res)=>{
         let status = (payment === 'COD')?'placed':'pending';
 
         let orderItems = [];
+        let totalamount = total
         cartData[0].cart.forEach(item => {
             const orderItem = {
                 productId: item.productId._id,
                 name: item.productId.name,
                 price: item.productId.price,
+                image:item.productId.image,
                 qty:item.qty,
                 productTotalPrice : item.productTotalPrice
             };
-            const totalamount = total
+           
+            totalamount += item.productTotalPrice;
             // const qty = cart.qty
-            orderItems.push(orderItem,totalamount);
+            orderItems.push(orderItem);
         });
         console.log(orderItems,"pr");
 
@@ -241,25 +244,28 @@ const place_order = async(req,res)=>{
 
         }else{
           
-            var instance = new Razorpay({
-                key_id: process.env.KEY_ID,
-                key_secret: process.env.KEY_SECRET,
-            });
-            let amount =totel
-            instance.orders.create({
-              amount : amount*100,
-              currency : "INR",
-              receipt : orderId,
-
-            },(err,order)=>{
-              console.log(order);
-              res.json({status:false,order})
-            })
+          var instance = new Razorpay({
+            key_id: process.env.KEY_ID,
+            key_secret: process.env.KEY_SECRET,
+          });
+          let amount = total;
+          instance.orders.create(
+            {
+              amount: amount * 100,
+              currency: "INR",
+              receipt: orderId,
+            },
+            (err, order) => {
+              console.log(order, "orderaaaa");
+              res.json({ status: false, order });
+            }
+          );
         }
       })
 
       
     } catch (error) {
+      res.render('500')
       console.log(error.message);
     }
   }
@@ -306,6 +312,7 @@ const place_order = async(req,res)=>{
         console.log('payment failed');
       }
     } catch (error) {
+      res.render('500')
       console.log(error.message);
     }
   }
@@ -318,14 +325,14 @@ const orderSuccess = async(req,res) => {
         const userData = await User.findOne({_id:userId})
         const catrData  = await User.findOne({_id:userId})
         const orderData = await Order.findOne({userId:userId}).populate({path:'items',populate:{path:'productId',model:'Product'}}).sort({createdAt:-1}).limit(1)
-        console.log(orderData,"orderSuccess");
+        console.log(orderData.items,"orderSuccess");
       if(orderData){
 
         res.render('orderSuccess',{orderData,user})
       }
         
     }catch(error){
-      
+        res.render('500')
         console.log(error.message);
     }
 }
@@ -333,12 +340,13 @@ const orderSuccess = async(req,res) => {
 
 const loadOrder = async(req,res)=>{
   try {
-    const orderList = await Order.find({})
+    const orderList = await Order.find({}).sort({createdAt: -1});
     console.log(orderList,"orderlist");
     if(orderList){
       res.render('list-orders',{orderList})
     }
   } catch (error) {
+    res.render('500')
     console.log(error);
   }
 }
@@ -352,6 +360,7 @@ const orderPlaced = async(req,res)=>{
       res.redirect('/admin/orders')
     }
   } catch (error) {
+    res.render('500')
     console.log(error.message);
   }
 }
@@ -365,6 +374,7 @@ const orderShipped = async(req,res)=>{
       res.redirect('/admin/orders')
     }
   } catch (error) {
+    res.render('500')
     console.log(error.message);
   }
 }
@@ -378,6 +388,7 @@ const orderDelivered = async(req,res)=>{
       res.redirect('/admin/orders')
     }
   } catch (error) {
+    res.render('500')
     console.log(error.message);
   }
 }
@@ -391,6 +402,7 @@ const rejectReturn = async(req,res)=>{
       res.redirect('/admin/orders')
     }
   } catch (error) {
+    res.render('500')
     console.log(error.message);
   }
 }
@@ -413,6 +425,7 @@ const acceptReturn = async(req,res)=>{
     }
 
   } catch (error) {
+    res.render('500')
     console.log(error.message);
   }
 }
@@ -423,7 +436,7 @@ const orderHistory = async(req,res)=>{
   try {
 
     id = req.session.userId
-    const orderedData = await Order.find({userId :id})
+    const orderedData = await Order.find({userId :id}).sort({createdAt: -1});
     console.log(orderedData ,"ordereddata");
     if(orderedData){
       res.render('orderHistory',{orderedData})
@@ -431,6 +444,7 @@ const orderHistory = async(req,res)=>{
     }
     
   } catch (error) {
+    res.render('500')
     console.log(error.message);
   }
 }
@@ -458,6 +472,7 @@ const returnRequest = async(req,res)=>{
 
     }
   } catch (error) {
+    res.render('500')
     console.log(error.message);
   }
 }
@@ -478,6 +493,7 @@ const cancelRequest = async(req,res)=>{
       res.redirect('/profile')
     }
   } catch (error) {
+    res.render('500')
     console.log(error.message);
   }
 }
@@ -525,11 +541,12 @@ const orderedProducts = async(req,res) => {
    try{
       const orderId  =req.query.id
       const orders = await Order.findOne({_id:orderId}).populate({path:'items',populate:{path:'productId',model:'Product'}})
-      console.log(orders.items);
+
+      console.log(orders.items,"orderedproducts");
       res.render('orderView',{orders})
 
    }catch(error){
-      
+    res.render('500')
       console.log(error.message);
    }
 }
@@ -537,8 +554,15 @@ const orderedProducts = async(req,res) => {
 
 const loadSales = async(req,res)=>{
   try {
-    res.render('salesReport')
+    const saleData = await Order.find({
+      orderStatus:'delivered'
+    })
+    .populate({path:'items',populate:{path:'productId',model:'Product'}})
+    .sort({date: -1}); 
+    
+    res.render('salesReport',{saleData})
   } catch (error) {
+    res.render('500')
     console.log(error.message);
   }
 }
@@ -551,17 +575,20 @@ const listSalesReport = async(req,res)=>{
     const newDate = new Date(currentDate)
     console.log(newDate);
     newDate.setDate(currentDate.getDate()+1)
+   
     if(req.body.from.trim() == '' || req.body.to.trim() == ''){
-      res.render('/salesReport',{message:'all field required'})
+      res.render('salesReport',{message:'all field required'})
     }else{
       const saleData = await Order.find({
         orderStatus:'delivered',
         date:{$gte : new Date(req.body.from),$lte:new Date(newDate)}
       })
       .populate({path:'items',populate:{path:'productId',model:'Product'}})
+      .sort({date: -1}); 
       res.render('listSalesReport',{saleData})
     }
   } catch (error) {
+    res.render('500')
     console.log(error.message);
   }
 }

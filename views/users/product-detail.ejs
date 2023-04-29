@@ -127,17 +127,27 @@
 
                         <!-- product left start -->
                         <div class="xzoom-container">
-                            <img class="xzoom5 mb-1-9" id="xzoom-magnific" src="/users/img/product-categories/sofasingle3.jpg" xoriginal="/users/img/product-categories/sofasingle3.jpg" alt="..." />
+                           
+                            <img class="xzoom5 mb-1-9" id="xzoom-magnific" src="/users/img/product-categories/<%=product.image[0] %>"
+                                xoriginal="/users/img/product-categories/<%=product.image[0] %>" alt="..." />
                             <div class="xzoom-thumbs no-margin">
+                                <% if(product.image.length> 0){
+                                    for (let i = 0; i <product.image.length; i++) { %>
+                                        
+                                        <a href="/users/img/product-categories/<%=product.image[i] %>"><img class="xzoom-gallery5"
+                                            width="80" src="/users/img/product-categories/<%=product.image[i] %>"
+                                            title="The description goes here"></a>
+                                    <%}
+                                }%>
                                 <!-- <a href="/users/img/products/single-product/original/01_product.jpg"><img class="xzoom-gallery5" width="80" src="/users/img/products/single-product/thumbs/01_product.jpg" xpreview="/users/img/products/single-product/preview/01_product.jpg" title="The description goes here"></a>
                                 <a href="/users/img/products/single-product/original/02_product.jpg"><img class="xzoom-gallery5" width="80" src="/users/img/products/single-product/preview/02_product.jpg" title="The description goes here"></a>
                                 <a href="/users/img/products/single-product/original/03_product.jpg"><img class="xzoom-gallery5" width="80" src="/users/img/products/single-product/preview/03_product.jpg" title="The description goes here"></a>
                                 <a href="/users/img/products/single-product/original/04_product.jpg"><img class="xzoom-gallery5" width="80" src="/users/img/products/single-product/preview/04_product.jpg" title="The description goes here"></a>
                              -->
-                                <a href="/users/img/product-categories/sofasingle1.jpg"><img class="xzoom-gallery5" width="80" src="/users/img/product-categories/sofasingle1.jpg" xpreview="/users/img/product-categories/sofasingle2.jpg" title="The description goes here"></a>
+                                <!-- <a href="/users/img/product-categories/sofasingle1.jpg"><img class="xzoom-gallery5" width="80" src="/users/img/product-categories/sofasingle1.jpg" xpreview="/users/img/product-categories/sofasingle2.jpg" title="The description goes here"></a>
                                 <a href="/users/img/product-categories/sofasingle2.jpg"><img class="xzoom-gallery5" width="80" src="/users/img/product-categories/sofasingle2.jpg" title="The description goes here"></a>
                                 <a href="/users/img/product-categories/sofasingle3.jpg"><img class="xzoom-gallery5" width="80" src="/users/img/product-categories/sofasingle3.jpg" title="The description goes here"></a>
-                                <a href="/users/img/product-categories/sofasingle4.jpg"><img class="xzoom-gallery5" width="80" src="/users/img/product-categories/sofasingle4.jpg" title="The description goes here"></a>
+                                <a href="/users/img/product-categories/sofasingle4.jpg"><img class="xzoom-gallery5" width="80" src="/users/img/product-categories/sofasingle4.jpg" title="The description goes here"></a> -->
                             </div>
                         </div>
                         <!-- product left end -->
@@ -173,21 +183,36 @@
                                     <span class="display-26 font-weight-700 text-primary"><%= product.price %></span>
                                 </div>
     
-                               
                                 <div class="row">
-                                    <div class="col-4 col-lg-2">
-                                        <label>Qty:</label>
-                                        <input type="text" value="1" placeholder="1" class="form-control medium mb-4">
+                                    <div class="col-5 col-md-3">
+                                        <span>Category</span> : <%=product.category.name %></a>
+                                        
+                                        
+    
                                     </div>
-    
-                                </div>
-    
+                                   
+    <div class="col-5 col-md-3">
+        <% if(product.quantity > 5){ %>
+            <p style="color: green"><span>Availibility</span> :In stock</p>
+            <% }else if(product.quantity <= 0){ %>
+             <p style="color: red;"><span>Availibility</span> :Out of stock </p>
+             <% }else{ %>
+               <p style="color: rgb(255, 106, 0);"><span>Availibility</span> :Few more left</p>
+               <% } %></a>
+        
+    </div>
+                                </div>    
+                               <% if(product.quantity <= 0){ %>
+                            
+                            <% } else {%>
                                 <div class="row mb-4">
                                     <div class="col-lg-12">
                                         <button class="butn-style2 me-3 mb-2 mb-md-0" onclick="addToCart('<%=product._id%>')"><span><i class="fas fa-shopping-cart me-1"></i> Add to Cart</span></button>
                                         <button class="butn-style2 dark" onclick="addToWishlist('<%=product._id%>')"><span><i class="fas fa-heart me-1"></i> Add to wishlist</span></button>
                                     </div>
                                 </div>
+                            <% } %>
+                               
     
                                 <div class="row">
     
@@ -464,100 +489,36 @@
                 </div>
 
                 <div class="product-grid-slide owl-carousel owl-theme">
-                    <div class="product-grid">
-                        <div class="product-img">
-                            <a href="shop-product-detail.html">
-                                <div class="label-offer bg-red">Sale</div><img src="/users/img/products/product-grid/product-01.jpg" alt="..."></a>
-                        </div>
-                        <div class="product-description">
-                            <h3><a href="shop-product-detail.html">Smart Digital Watch</a></h3>
-                            <h4 class="price">
-                                                        <span class="regular-price line-through">$99.00</span>
-                                                        <span class="offer-price">$90.00</span>
-                                                    </h4>
-                        </div>
-                        <div class="product-buttons">
-                            <ul class="ps-0">
-                                <li><a href="#" class="btn-link" title="Add To Wishlist"><i class="far fa-heart"></i></a></li>
-                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                <li><a href="#" class="btn-link" title="Add To Compare"><i class="fas fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product-grid">
-                        <div class="product-img">
-                            <a href="shop-product-detail.html"><img src="/users/img/products/product-grid/product-02.jpg" alt="..."></a>
-                        </div>
-                        <div class="product-description">
-                            <h3><a href="shop-product-detail.html">Desktop Speakers</a></h3>
-                            <h4 class="price">
-                                                        <span class="offer-price">$29.00</span>
-                                                    </h4>
-                        </div>
-                        <div class="product-buttons">
-                            <ul class="ps-0">
-                                <li><a href="#" class="btn-link" title="Add To Wishlist"><i class="far fa-heart"></i></a></li>
-                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                <li><a href="#" class="btn-link" title="Add To Compare"><i class="fas fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product-grid">
-                        <div class="product-img">
-                            <a href="shop-product-detail.html">
-                                <div class="label-offer left-align bg-primary">New</div><img src="/users/img/products/product-grid/product-03.jpg" alt="..."></a>
-                        </div>
-                        <div class="product-description">
-                            <h3><a href="shop-product-detail.html">Wireless Controller</a></h3>
-                            <h4 class="price">
-                                                        <span class="regular-price line-through">$57.00</span>
-                                                        <span class="offer-price">$55.00</span>
-                                                    </h4>
-                        </div>
-                        <div class="product-buttons">
-                            <ul class="ps-0">
-                                <li><a href="#" class="btn-link" title="Add To Wishlist"><i class="far fa-heart"></i></a></li>
-                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                <li><a href="#" class="btn-link" title="Add To Compare"><i class="fas fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product-grid">
-                        <div class="product-img">
-                            <a href="shop-product-detail.html"><img src="/users/img/products/product-grid/product-04.jpg" alt="..."></a>
-                        </div>
-                        <div class="product-description">
-                            <h3><a href="shop-product-detail.html">Wireless Headset</a></h3>
-                            <h4 class="price">
-                                                        <span class="offer-price">$28.00</span>
-                                                    </h4>
-                        </div>
-                        <div class="product-buttons">
-                            <ul class="ps-0">
-                                <li><a href="#" class="btn-link" title="Add To Wishlist"><i class="far fa-heart"></i></a></li>
-                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                <li><a href="#" class="btn-link" title="Add To Compare"><i class="fas fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product-grid">
-                        <div class="product-img">
-                            <a href="shop-product-detail.html"><img src="/users/img/products/product-grid/product-05.jpg" alt="..."></a>
-                        </div>
-                        <div class="product-description">
-                            <h3><a href="shop-product-detail.html">Hp Wireless Printer</a></h3>
-                            <h4 class="price">
-                                                    <span class="offer-price">$90.00</span>
-                                                </h4>
-                        </div>
-                        <div class="product-buttons">
-                            <ul class="ps-0">
-                                <li><a href="#" class="btn-link" title="Add To Wishlist"><i class="far fa-heart"></i></a></li>
-                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                <li><a href="#" class="btn-link" title="Add To Compare"><i class="fas fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    
+<% relatedProduct.forEach((product)=>{ %>
+
+
+                   
+    <div class="product-grid">
+        <div class="product-img">
+            <a href="/productDetails/<%= product._id %>">
+                <div class="label-offer bg-red">Sale</div><img src="/users/img/product-categories/<%= product.image[0] %>" alt="..." style="width: 306px; height: 306px;"></a>
+        </div>
+        <div class="product-description">
+            <h3><a href="/productDetails/<%= product._id %>"><%= product.name %></a></h3>
+            <h4 class="price">
+                                        <!-- <span class="regular-price line-through">$99.00</span> -->
+                                        <span class="offer-price"><%= product.price %></span>
+                                    </h4>
+        </div>
+        <div class="product-buttons">
+            <ul class="ps-0">
+                
+                <li><a onclick="addToWishlist('<%=product._id%>')" class="btn-link" title="Add To Wishlist"><i class="far fa-heart"></i></a></li>
+                <li><a onclick="addToCart('<%=product._id%>')" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
+                <li><a href="/productDetails/<%= product._id %>" class="btn-link" title="Add To Compare"><i class="fas fa-random"></i></a></li>
+            
+            </ul>
+        </div>
+    </div>
+    <%  }) %>
+
+                   
                 </div>
                 <!-- end related product -->
 
@@ -774,4 +735,37 @@
         }
      </script>
 
-    <%- include("./layout/footer.ejs") %>
+   
+    <!-- all js include start -->
+
+    <!-- jQuery -->
+    <script src="/users/js/jquery.min.js"></script>
+
+    <!-- popper js -->
+    <script src="/users/js/popper.min.js"></script>
+
+    <!-- bootstrap -->
+    <script src="/users/js/bootstrap.min.js"></script>
+
+    <!-- core.min.js -->
+    <script src="/users/js/core.min.js"></script>
+
+    <!-- zoom js -->
+    <script src="/users/js/xzoom.js"></script>
+
+    <!-- hammer js -->
+    <script src="/users/js/jquery.hammer.min.js"></script>
+
+    <!-- setup js -->
+    <script src="/users/js/setup.js"></script>
+
+    <!-- custom scripts -->
+    <script src="/users/js/main.js"></script>
+
+    <!-- all js include end -->
+
+</body>
+
+
+<!-- Mirrored from smartshop.websitelayout.net/shop-product-detail.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 15:59:12 GMT -->
+</html>

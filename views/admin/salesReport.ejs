@@ -240,6 +240,7 @@
                                     <input type="date" id="to" name="to"
                                         style="margin: 10px; padding: 10px; border-radius: 5px; border: 1px solid gray; text-align: center;">
                                 </div>
+
                                 <% if(typeof message !== 'undefined'){ %>
                                   <p style="color: brown;"><%= message %> </p>
                                   <% } %>
@@ -275,6 +276,50 @@
                                     }
                                 </script>
                             </form>
+                            <div class="row">
+                                <div class="col-12 grid-margin">
+                                    <div class="card card-white">
+                                        <div class="card-body">
+                                            <table class="table">
+                                                <thead class="bg-light">
+                                                    <tr>
+                                                        <th scope="col">Date</th>
+                                                        <th scope="col">Address</th>
+                                                        <th scope="col">Payment Method</th>
+                                                        <th scope="col">Order Status</th>
+                                                        <th scope="col">Total</th>
+                                                       
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% if(saleData.length > 0){ %>
+                                                        <% saleData.forEach((value,index)=>{%>
+                                                          <tr>
+                                                            <th scope="row"><%= value.date.toLocaleDateString() %></th>
+                                                               <th scope="row"><%= value.address.name %> <br>
+                                                                <%= value.address.address %> <%= value.address.house_no %> <br>
+                                                                <%= value.address.place %> . <%= value.address.pincode %> ,<%= value.address.state %>  <br>
+                                                                </th>
+                                                                <th scope="row"><%= value.paymentMethod %></th>
+                                                                <th scope="row"><%= value.orderStatus %></th>
+                                                                <th scope="row"><%= value.totalAmount %></th>
+                                                            </tr>
+                                                            
+                                                        <% }) %>
+        
+            
+                                                         </tbody>
+                                                    <%}else{
+                                                        %>
+                                                        <tr><h4>Sales Report is Empty</h4></tr>
+                                                   <% }%>
+                                                   
+                                            </table>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             </div>
                             </div>
                             </div>

@@ -216,22 +216,24 @@
                                         <thead class="bg-light">
                                             <tr>
                                                
-                                                <th scope="col">Image</th>
-                                                <th scope="col">Type</th>
-                                                <th scope="col">Description</th>
+                                                <th scope="col">sl no</th>
+                                                <th scope="col">offerName</th>
+                                                <th scope="col">Banner Image</th>
                                                 <th scope="col">Status</th>
-                                                <th scope="col">Action</th>
+                                              
                                                
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            
 
                                             <% bannerData.forEach((value,index)=>{%>
                                                 <tr>
+                                                    <td><P><%= index+1 %></P></td>
+                                                    <td > <p class="text-xs font-weight-bold mb-0"><%= value.offerName %></p></td>
+                                                    <td > <img src="/users/img/product-categories/<%= value.bannerImage %>" style="width: 100px; height: 70px;" alt=""> </td>
                                                     
-                                                    <td> <img src="/users/img/product-categories/<%= value.image[0] %>" style="width: 60px; height: 50px;" alt=""> </td>
-                                                    <td> <%= value.type %></td>
-                                                    <td> <%= value.description %></td>
+                                                    
                                                     
                                                     <td><% if(value.unlist == true){
                                                             %>

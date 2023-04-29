@@ -235,11 +235,12 @@
                                                     <td>
                                                         <%= index+1 %>
                                                     </td>
-                                                    <td><img src="/users/img/product-categories/<%= item.productId.image[0] %>" alt="" style="height: 80px; width:80px;"></td>
+                                                    <td><img src="/users/img/product-categories/<%= item.productId.image[0] %>" alt="" style="height: 80px; width:80px;">
+                                                    </td>
                                                     <td><%= item.name %></td>
                                                     <td><%= item.price %></td>
-                                                    <td><%= item.productId.quantity %></td>
-                                                    <td><%= item.productId.price %></td>
+                                                    <td><%= item.qty %></td>
+                                                    <td><%= item.productTotalPrice %></td>
                                                 </tr>
                                            <% }) %>
                                            

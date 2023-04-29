@@ -2,21 +2,25 @@ const mongoose = require('mongoose')
 
 const bannerSchema = new mongoose.Schema({
 
-    image : {
-        type : Array,
-        required : true
+    bannerImage:{
+        type:String,
+        require:true
     },
-    type : {
-        type : String,
-        required : true
+    subTitle:{
+        type:String,
+        require:true
     },
-    description : {
-        type : String,
-        required : true
+    description:{
+        type:String,
+        require:true
+    },
+    offerName:{
+        type:String,
+        require:true
     },
     unlist : {
         type : Boolean,
-        default : true
+        default : false
     }
 })
 

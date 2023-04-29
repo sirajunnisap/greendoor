@@ -96,7 +96,7 @@
                                                         WALLET</strong> <br>&nbsp;<p> <b
                                                             style="color: rgb(179, 2, 2);"> balence: </b><b
                                                             style="color: rgb(20, 154, 51);">
-                                                            <%=user.wallet%> ₹
+                                                            <%=user[0].wallet%> ₹
                                                         </b></p>
                                                     </span><br>
 
@@ -661,6 +661,12 @@
                             window.location.href = '/ordersuccess';
                             console.log(response);
                         }, 1000);
+                    } else if (response.walletBalance) {
+                        Swal.fire({
+                        icon: "error",
+                        title: "Insaficent Balance In Your Wallet",
+                        text: " Please add money to your wallet.",
+          });
                     } else {
                         razorPayment(response);
                         console.log(response);

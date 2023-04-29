@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 const Product = require('../models/productsModel') 
 const Category = require('../models/categoryModel')
+const Coupon = require('../models/coupenModel')
 const fs = require('fs')
 const path = require('path')
 //products
@@ -14,9 +15,7 @@ const productList = async (req, res) => {
         const product= await Product.find({}).populate('category').exec()
         console.log(product);
         const category = await Category.find()
-        if(product.quantity < 0){
-            unlist == true
-        }
+       
         res.render("list-products", { product, user,category });
     } catch (error) {
 
@@ -205,11 +204,13 @@ const productDetail = async(req,res)=>{
     try {
         const id = req.params.id
         const user = req.session.userId
-        const product = await Product.findOne({_id:id})
-        const category = await Category.find()
-       if(product){
-        res.render('product-detail',{product,category,user})
-       }
+        const product = await Product.findOne({_id:id}).populate('category').exec()
+        const categoryId = product.category
+        const relatedProduct = await Product.find({category:categoryId})
+        // const category = await Category.find()
+     
+        res.render('product-detail',{product,relatedProduct,user})
+     
         
     } catch (error) {
         console.log(error.message);
@@ -218,19 +219,6 @@ const productDetail = async(req,res)=>{
 
 
 
-// const product_view = async(req,res)=>{
-//     try {
-//         const category =await Category.find()
-//         const product = await Product.find()
-
-        
-           
-//         res.render('products',{product,category})
-        
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// }
 
 const loadProducts = async(req,res)=>{
     try {
@@ -246,19 +234,19 @@ const loadProducts = async(req,res)=>{
             }
             let limit = 3
 
-            const categoryData = await Category.find()
-            const productData = await Product.find()
+            const category_name = "All Products"
+            const product = await Product.find({unlist:false})
                 .limit(limit*1)
                 .skip((page-1)*limit)
                 .exec()
             
             const productCount = await Product.find().countDocuments()
-            let countProduct = Math.ceil(productCount/limit)
+            let countpro = Math.ceil(productCount/limit)
             const category = await Category.find()
-            const product = await Product.findOne({})
-            if(product.unlist == false){
-                res.render('products',{categoryData,productData,countProduct,user,category,userData})
-            }
+           
+            
+                res.render('products',{category,product,countpro,user,userData,category_name})
+          
             // res.render('products',{categoryData,productData,countProduct,user,category,userData})
         }
     } catch (error) {
@@ -290,7 +278,9 @@ const loadShopCategory = async (req,res) =>{
             let countProduct = Math.ceil(productCount/limit)
             const categoryData = await Category.find()
             const category = await Category.find()
+            
             res.render('categories',{productCate,categoryData,user,countProduct,category,userData})
+          
 
         }else{
             const user = false
@@ -321,89 +311,6 @@ const loadShopCategory = async (req,res) =>{
         console.log(error.message);
     }
 }
-const viewProduct = async (req, res) => {
-    try {
-      const category = req.query.categoryId;
-      const search = req.query.search || "";
-      const sort = req.query.sort || "";
-      console.log(category + " - " + search + " - " + sort);
-      let isRender = false;
-  
-      if (req.query.isRender) {
-        isRender = true;
-      }
-  
-      const searchData = new String(search).trim();
-      console.log(searchData);
-  
-      const query = {
-        is_delete: false,
-      };
-  
-      let sortQuery = { price: 1 };
-      if (sort == "high-to-low") {
-        sortQuery = { price: -1 };
-      }
-  
-      if (search) {
-        query["$or"] = [
-          { name: { $regex: ".*" + searchData + ".*", $options: "i" } },
-          { description: { $regex: searchData, $options: "i" } },
-        ];
-      }
-  
-      if (category) {
-        query["$or"] = [{ mainCategory: category }];
-      }
-  
-      const product = await Product.find(query).sort(sortQuery);
-  
-      //console.log(product);
-  
-      const productsPerPage = 5;
-      const page = req.query.page || 1;
-      const startIndex = (page - 1) * productsPerPage;
-      const endIndex = startIndex + productsPerPage;
-      const pageProducts = product.slice(startIndex, endIndex);
-      const totalPages = Math.ceil(product.length / productsPerPage);
-  
-      // -----------Category finding
-      const categoryData = await Category.find({});
-  
-      // ----------------------
-      const user = req.session.userId
-      const productData = await Product.find()
-
-      if (isRender == true) {
-        res.json({
-          pageProducts,
-          totalPages,
-          currentPage: parseInt(page, 10),
-          product,
-          user,
-          productData,
-          cartCount,
-          // wishListCount
-        });
-      } else {
-        res.render("productsearch", {
-          pageProducts,
-          totalPages,
-          currentPage: parseInt(page, 10),
-          product,
-          categoryData,
-          user,
-          productData
-        });
-      }
-    } catch (error) {
-      console.log(error.message);
-     
-    }
-  };
-
-
-
 
 
 const loadCheckout = async(req,res)=>{
@@ -427,19 +334,57 @@ const loadCheckout = async(req,res)=>{
 
 const searchProducts = async(req,res)=>{
     try {
-        const search = req.body.search
-        const productData = await Product.find({"name":{$regex: ".*"+search+".*"}});
-        if(productData){
-            res.render('products')
-        }
+        const user = req.session.userId
+        const input = req.body.s
+        const result = new RegExp(input,'i')
+        const product = await Product.find({name:result}).populate('category')
+        const category = await Category.find()
+       
+            res.render('products',{category,product,user,category_name:"search",countpro:''})
+      
     } catch (error) {
        console.log(error.message); 
     }
 }
+
+
+const sort = async(req,res)=>{
+    try {
+        const user = req.session.userId
+        
+        const sort = req.query.sort || "";
+        
+        const category = await Category.find({})
+        
+
+        let sortQuery = { price: 1 };
+        if (sort == "high-to-low") {
+          sortQuery = { price: -1 };
+        }
+        // if(sort_value == "az"){
+        //     const product = await Product.find({}).sort({name : -1});
+        //     res.render("products",{product,user});
+        // }else if(sort_value == "za"){
+        //     const product = await Product.find({}).sort({name : -1});
+        //     res.render("products",{product,user});
+        // }else if(sort_value == "high"){
+            // const product = await Product.find({}).sort({name : -1});
+            // res.render("products",{product,user})
+        // }else if(sort_value == "low"){
+        //     const product = await Product.find({}).sort({name : -1});
+        //     res.render("products",{product,user,category})
+        // }
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+
 module.exports = {
     loadAddProduct,
     productList,
-    // product_view,
     addproducts,
     editProducts,
     updateProduct,
@@ -448,10 +393,10 @@ module.exports = {
     loadShopCategory,
     loadProducts,
     loadCheckout,
-    viewProduct,
     updateImage,
     deleteImage,
     searchProducts,
+    sort
     
 
 }

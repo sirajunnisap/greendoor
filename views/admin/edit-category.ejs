@@ -190,13 +190,13 @@
                                             <div class="col-md-12 mb-3">
                                                 <label for="validationCustom01">category Name</label>
                                                 <input type="text" class="form-control" id="validationCustom01" name="name" value="<%= category.name %>"  required>
-                                               
+                                                <div class="invalid-feedback">Please enter category name</div>
                                             </div>
                                           
                                             <div class="col-md-6 mb-3">
                                                 <label for="validationCustom03">Description</label>
                                                 <input type="text" class="form-control" id="validationCustom03" name="description" value="<%= category.description %>" required>
-                                                
+                                                <div class="invalid-feedback">Please enter description</div>
                                             </div>
                                             
                                             
@@ -407,4 +407,24 @@
         </div>
 
     </div>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+          'use strict';
+  
+  
+          const forms = document.querySelectorAll('.needs-validation');
+  
+  
+          Array.prototype.slice.call(forms).forEach((form) => {
+            form.addEventListener('submit', (event) => {
+              if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        })();
+      </script>
     <%- include('./layout/footer.ejs') %>

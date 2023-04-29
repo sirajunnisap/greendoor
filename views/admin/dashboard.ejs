@@ -19,8 +19,8 @@
             <div class="page-sidebar-inner">
                 <div class="page-sidebar-menu">
                     <ul class="accordion-menu">
-                        <li class="active">
-                            <a href="/admin/dashboard"> <i class="menu-icon icon-home4 "></i><span >Dashboard</span> </a>
+                        <li>
+                            <a href="/admin/dashboard"> <i class="menu-icon icon-home4"></i><span>Dashboard</span> </a>
                         </li>
                         <li>
                             <a href="#">
@@ -87,11 +87,11 @@
 
         <!-- PAGE CONTENT
         ================================================== -->
-        <div class="page-content">
+        <!-- <div class="page-content"> -->
 
             <!-- PAGE HEADER
             ================================================== -->
-            <div class="page-header">
+            <!-- <div class="page-header">
                 <div class="search-form">
                     <form action="#" method="GET">
                         <div class="input-group">
@@ -103,9 +103,9 @@
                     </form>
                 </div>
                 <nav class="navbar navbar-default">
-                    <div class="container-fluid">
+                    <div class="container-fluid"> -->
                         <!-- Brand and toggle get grouped for better mobile display -->
-                        <div class="navbar-header">
+                        <!-- <div class="navbar-header">
                             <div class="logo-sm">
                                 <a href="#" id="sidebar-toggle-button"><i class="fa fa-bars"></i></a>
                                 <a class="logo-box" href="index.html"><img src="..//admin/img/logos/logo.png" class="logo" alt="..."></a>
@@ -113,10 +113,10 @@
                             <button type="button" class="navbar-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                                 <i class="fa fa-angle-down"></i>
                             </button>
-                        </div>
+                        </div> -->
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
-
+<!-- 
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
                                 <li><a href="#" id="collapsed-sidebar-toggle-button"><i class="fa fa-bars"></i></a></li>
@@ -171,12 +171,12 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                         <!-- /.navbar-collapse -->
-                    </div>
+                    <!-- </div> -->
                     <!-- /.container-fluid -->
-                </nav>
-            </div>
+                <!-- </nav>
+            </div> -->
 
             <!-- PAGE INNER
             ================================================== -->
@@ -193,16 +193,16 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div>
-                                            <h4 class="mb-0 text-blue">850</h4>
-                                            <p class="text-muted mb-0">Products Sold</p>
+                                            <h4 class="mb-0 text-blue"><%= totalOrders %></h4>
+                                            <p class="text-muted mb-0">Total Orders</p>
                                         </div>
                                         <div>
                                             <i class="fas fa-shopping-cart text-blue fs-2"></i>
                                         </div>
                                     </div>
-                                    <div class="custom-progress bg-blue progress mb-0">
-                                        <div class="animated custom-bar progress-bar slideInLeft" style="width:70%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar"></div>
-                                    </div>
+                                    <!-- <div class="custom-progress bg-blue progress mb-0">
+                                        <div class="animated custom-bar progress-bar slideInLeft" style="width:10%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar"></div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -211,16 +211,16 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div>
-                                            <h4 class="mb-0 text-orange">$748</h4>
-                                            <p class="text-muted mb-0">Net Profit</p>
+                                            <h4 class="mb-0 text-orange"><%= totalDelivery %></h4>
+                                            <p class="text-muted mb-0">Total Delivery</p>
                                         </div>
                                         <div>
                                             <i class="fas fa-chart-pie text-orange fs-2"></i>
                                         </div>
                                     </div>
-                                    <div class="custom-progress bg-orange progress mb-0">
-                                        <div class="animated custom-bar progress-bar slideInLeft" style="width:80%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar"></div>
-                                    </div>
+                                    <!-- <div class="custom-progress bg-orange progress mb-0">
+                                        <div class="animated custom-bar progress-bar slideInLeft" style="width:1%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar"></div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -229,16 +229,34 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div>
-                                            <h4 class="mb-0 text-green">146</h4>
-                                            <p class="text-muted mb-0">New Customers</p>
+                                            <h4 class="mb-0 text-orange"><%= weeklyRevenue %></h4>
+                                            <p class="text-muted mb-0">Weekend Revenue</p>
+                                        </div>
+                                        <div>
+                                            <i class="fas fa-chart-pie text-orange fs-2"></i>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="custom-progress bg-orange progress mb-0">
+                                        <div class="animated custom-bar progress-bar slideInLeft" style="width:1%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar"></div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 half-gutter grid-margin">
+                            <div class="card card-white">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <div>
+                                            <h4 class="mb-0 text-green"><%= totalUsers %></h4>
+                                            <p class="text-muted mb-0">Total Customers</p>
                                         </div>
                                         <div>
                                             <i class="far fa-user text-green fs-2"></i>
                                         </div>
                                     </div>
-                                    <div class="custom-progress bg-green progress mb-0">
-                                        <div class="animated custom-bar progress-bar slideInLeft" style="width:60%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar"></div>
-                                    </div>
+                                    <!-- <div class="custom-progress bg-green progress mb-0">
+                                        <div class="animated custom-bar progress-bar slideInLeft" style="width:7%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar"></div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -247,16 +265,52 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div>
-                                            <h4 class="mb-0 text-pink">99.89 %</h4>
-                                            <p class="text-muted mb-0">Customer Satisfaction</p>
+                                            <h4 class="mb-0 text-pink"><%= totalProduct %></h4>
+                                            <p class="text-muted mb-0">Total Products</p>
                                         </div>
                                         <div>
-                                            <i class="far fa-heart text-pink fs-2"></i>
+                                            <i class="fas fa-chart-pie text-pink fs-2"></i>
                                         </div>
                                     </div>
-                                    <div class="custom-progress bg-pink progress mb-0">
-                                        <div class="animated custom-bar progress-bar slideInLeft" style="width:90%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar"></div>
+                                    <!-- <div class="custom-progress bg-pink progress mb-0">
+                                        <div class="animated custom-bar progress-bar slideInLeft" style="width:10%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar"></div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 half-gutter grid-margin">
+                            <div class="card card-white">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <div>
+                                            <h4 class="mb-0 text-orange"><%= totalCoupon %></h4>
+                                            <p class="text-muted mb-0">Total Coupon</p>
+                                        </div>
+                                        <div>
+                                            <i class="fas fa-chart-pie text-orange fs-2"></i>
+                                        </div>
                                     </div>
+                                    <!-- <div class="custom-progress bg-orange progress mb-0">
+                                        <div class="animated custom-bar progress-bar slideInLeft" style="width:9%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar"></div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 half-gutter grid-margin">
+                            <div class="card card-white">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <div>
+                                            <h4 class="mb-0 text-pink"><%= totalbanner %></h4>
+                                            <p class="text-muted mb-0">Total Banner</p>
+                                        </div>
+                                        <div>
+                                            <i class="fas fa-chart-pie text-pink fs-2"></i>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="custom-progress bg-pink progress mb-0">
+                                        <div class="animated custom-bar progress-bar slideInLeft" style="width:6%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar"></div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -264,18 +318,18 @@
                     <!-- end row -->
 
                     <!-- row -->
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-xl-7 half-gutter grid-margin">
                             <div class="card card-white h-100">
                                 <div class="card-heading clearfix">
                                     <h4 class="card-title">Market Value</h4>
                                 </div>
                                 <div class="card-body">
-                                    <div id="apexchart1"></div>
+                                    <div id="chartjs"></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-xl-5 half-gutter grid-margin">
+                        </div> -->
+                        <!-- <div class="col-xl-5 half-gutter grid-margin">
                             <div class="card card-white h-100">
                                 <div class="card-heading clearfix">
                                     <h4 class="card-title">New Orders</h4>
@@ -375,110 +429,13 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    
-
-        <!-- Doughnut Chart -->
-        <br><br>
-        <br><br>
-        <br><br>
-
-        <canvas id="doughnutChart" style="max-height: 400px;"></canvas>
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                new Chart(document.querySelector('#doughnutChart'), {
-
-                    type: 'doughnut',
-
-                    data: {
-                        labels: [
-                            'ONLINE',
-                            'COD',
-                            'WALLET'
-                        ],
-
-                        datasets: [{
-                            label: '',
-                            data: ['<%= online%>', '<%= cod%>', '<%= wallet%>'],
-                            backgroundColor: [
-                                'rgb(255, 99, 132)',
-                                'rgb(54, 162, 235)',
-                                'rgb(255, 205, 86)'
-                            ],
-                            hoverOffset: 4
-                        }]
-                    }
-                });
-            });
-        </script>
-        <!-- End Doughnut CHart -->
-
-
-        <!-- bar chart -->
-        <div class="card" style="background: white;">
-            <br><br>
-            <br><br>
-            <br><br>
-            <br><br>
-            <div class="card-body">
-                <h5 class="card-title">Sales Chart</h5>
-
-                <!-- Bar Chart -->
-                <canvas id="barChart" style="max-height: 600px; width: 100%;"></canvas>
-
-                <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                        new Chart(document.querySelector('#barChart'), {
-                            type: 'line',
-                            data: {
-                                labels: ['<%=date[0]%>', '<%=date[1]%>', '<%=date[2]%>', '<%=date[3]%>', '<%=date[4]%>', '<%=date[5]%>', '<%=date[6]%>'],
-                                datasets: [{
-                                    label: 'Daily sales',
-                                    data: ["<%=Sales[0]%>", "<%=Sales[1]%>", "<%=Sales[2]%>", "<%=Sales[3]%>", "<%=Sales[4]%>", "<%=Sales[5]%>", "<%=Sales[6]%>"],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(255, 159, 64, 0.2)',
-                                        'rgba(255, 205, 86, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)',
-                                        'rgba(54, 162, 235, 0.2)',
-                                        'rgb(255,255,255)',
-                                        'rgba(201, 203, 207, 0.2)'
-                                    ],
-                                    borderColor: [
-                                        'rgb(255,255,255)',
-                                        'rgb(255,255,255)',
-                                        'rgb(255,255,255)',
-                                        'rgb(255,255,255)',
-                                        'rgb(255,255,255)',
-                                        'rgb(255,255,255)',
-                                        'rgb(255,255,255)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                }
-                            }
-                        });
-                    });
-                </script>
-                <!-- End Bar CHart -->
-            </div>
-        </div>
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+                        </div> -->
+                    <!-- </div>   -->
                     <!-- end row -->
 
                     <!-- row -->
-                    <!-- <div class="row"> -->
-                        <!-- <div class="col-lg-6 col-xl-4 half-gutter grid-margin">
+                    <!-- <div class="row">
+                        <div class="col-lg-6 col-xl-4 half-gutter grid-margin">
                             <div class="card card-white mb-3">
                                 <div class="card-heading clearfix">
                                     <h4 class="card-title">Social Source</h4>
@@ -607,6 +564,59 @@
                         </div>
                     </div> -->
                     <!-- end row -->
+                     <!-- End Navbar -->
+    <!-- <div class="container-fluid py-4">
+        <div class="row">
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+              <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                  <i class="material-icons opacity-10">weekend</i>
+                </div>
+                <div class="text-end pt-1">
+                  <p class="text-sm mb-0 text-capitalize"> Sales</p>
+                  <h4 class="mb-0"><%=totalOrders %></h4>
+                </div>
+              </div>
+              <hr class="dark horizontal my-0">
+              
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+              <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
+                  <i class="material-icons opacity-10">person</i>
+                </div>
+                <div class="text-end pt-1">
+                  <p class="text-sm mb-0 text-capitalize">weekend Revenue</p>
+                  <h4 class="mb-0"><%= weeklyRevenue %></h4>
+                </div>
+              </div>
+              <hr class="dark horizontal my-0">
+              
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+              <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                  <i class="material-icons opacity-10">person</i>
+                </div>
+                <div class="text-end pt-1">
+                  <p class="text-sm mb-0 text-capitalize">Customers</p>
+                  <h4 class="mb-0"><%= totalUsers %> </h4>
+                </div>
+              </div>
+              <hr class="dark horizontal my-0">
+              
+            </div>
+          </div>
+          
+        </div> -->
+                <!-- End Bar CHart -->
+            <!-- </div>
+        </div> -->
 
                     <!-- row -->
                     <!-- <div class="row">
@@ -808,13 +818,12 @@
                         </div>
                     </div> -->
                     <!-- end row -->
-
-                <!-- </div>
+ </div> 
 
                 <div class="page-footer">
                     <p>Copyright &copy; <span class="current-year"></span> Smartshop All rights reserved.</p>
                 </div>
-            </div> -->
+            </div>
 
             <!-- PAGE MAIN RIGHT SIDEBAR
             ================================================== -->
@@ -932,8 +941,8 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
-            <!-- </div> -->
+                </div>
+            </div> -->
 
             <!-- PAGE CHAT RIGHT SIDEBAR
             ================================================== -->
@@ -992,10 +1001,11 @@
 
     </div> -->
 
+
     <!-- BUY TEMPLATE
     ================================================== -->
-    <!-- <div class="buy-theme alt-font d-none d-lg-inline-block"><a href="https://wrapbootstrap.com/theme/smartshop-multipurpose-ecommerce-template-WB0N7CT4D" target="_blank"><i class="fas fa-cart-plus"></i><span>Buy Template</span></a></div>
+    <div class="buy-theme alt-font d-none d-lg-inline-block"><a href="https://wrapbootstrap.com/theme/smartshop-multipurpose-ecommerce-template-WB0N7CT4D" target="_blank"><i class="fas fa-cart-plus"></i><span>Buy Template</span></a></div>
 
     <div class="all-demo alt-font d-none d-lg-inline-block"><a href="https://www.chitrakootweb.com/contact.html" target="_blank"><i class="far fa-envelope"></i><span>Quick Question?</span></a></div>
-     -->
+    
     <%- include('./layout/footer.ejs') %>

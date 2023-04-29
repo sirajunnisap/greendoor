@@ -18,19 +18,18 @@
                 <!-- top search -->
                 <div class="top-search bg-primary">
                     <div class="container-fluid">
-                        
+                        <form class="search-form" action="/search" method="post">
                             <div class="input-group">
                                 <span class="input-group-addon cursor-pointer">
-                                    <button class="search-form_submit fas fa-search display-27 text-white" type="submit"></button>
+                                    <button class="search-form_submit fas fa-search display-27 text-white"
+                                        type="submit"></button>
                                 </span>
-                                <input onkeyup="sendData(this)" type="text" class="search-form_input form-control" name="s" autocomplete="off" placeholder="Type here...">
-                                <span class="input-group-addon close-search"><i class="fas fa-times display-27 mt-2"></i></span>
+                                <input type="text" class="search-form_input form-control" name="s"
+                                    autocomplete="off" placeholder="Type & hit enter...">
+                                <span class="input-group-addon close-search"><i
+                                        class="fas fa-times display-27 mt-2"></i></span>
                             </div>
-                            <div id="searchResults" ></div>
-                            <!-- <section id="searchResults" style="width: fit-content; height: fit-content;"> -->
-
-                            </section>
-                        
+                        </form>
                     </div>
                 </div>
                 <!-- end top search -->
@@ -125,11 +124,11 @@
             <div class="container">
 
                 <div class="title-info">
-                    <h1>Shop Product </h1></div>
+                    <h1></h1><%= category_name %></div>
                 <div class="breadcrumbs-info">
                     <ul class="ps-0">
                         <li><a href="home-shop-1.html">Home</a></li>
-                        <li><a href="#">Shop Product </a></li>
+                        <li><a href="#"><%= category_name %></a></li>
                     </ul>
                 </div>
 
@@ -155,7 +154,7 @@
                                 <h5>Categories</h5>
                             </div>
                             <div id="accordion" class="accordion-style2">
-                                <% categoryData.forEach((value) => {%>
+                                <% category.forEach((value) => {%>
                                 <div class="card">
                                     <div class="card-header" id="headingOne">
                                         <a href="/shopCategory/<%= value._id %>"><%= value.name %></a>
@@ -177,6 +176,14 @@
                         </div>
 
                         -->
+                        <!-- <span class="sort-by">Sort by</span>
+            <div class="ec-select-inner">
+              <select name="sort" id="sort">
+                <option selected disabled>Price</option>
+                <option value="low-to-high">Low to High</option>
+                <option value="high-to-low">High to Low</option>
+              </select>
+            </div> -->
 
                     </div>
                     <!-- end sidebar panel -->
@@ -187,16 +194,16 @@
                     
 
                         <div class="row justify-content-center" id="product">
-                            <% if(productData.quantity > 0){ %>
+                            <% if(product.quantity > 0){ %>
 
                             <% }else{ %>
-                                <%=console.log(productData.length)%>
-                            <%if(productData.length == 0){ %>
+                                <%=console.log(product.length)%>
+                            <%if(product.length == 0){ %>
                                 
                                 <h1>product is empty</h1>
                                 
-                                <%} else{
-                                    productData.forEach((x) => { 
+                                <%} else{ %>
+                                  <%  product.forEach((x) => { 
                                         %> 
         
                                     <div class="col-11 col-sm-6 col-xl-4 mb-1-9">
@@ -213,7 +220,15 @@
                                             <div class="product-buttons">
                                                 <ul class="ps-0">
                                                     <li><a onclick="addToWishlist('<%=x._id%>')" class="btn-link" title="Add To Wishlist"><i class="far fa-heart"></i></a></li>
-                                                    <li><a onclick="addToCart('<%=x._id%>')" " class="butn-style2" title="Add to Cart">Add to Cart</a></li>
+                                                   
+                                                    <% if(x.quantity > 0 ){ %>
+                                                        <li><a onclick="addToCart('<%=x._id%>')" " class="butn-style2" title="Add to Cart">Add to Cart</a></li>
+                                                                
+                                                        <% }else{ %>
+                                                            <button class="btn btn-danger"> Out Of Stock
+                                                                </span></button>
+
+                                                            <% } %>
                                                     <li><a href="/productDetails/<%= x._id %>" class="btn-link" title="Add To Compare"><i class="fas fa-random"></i></a></li>
                                                 </ul>
                                             </div>
@@ -233,15 +248,14 @@
                         <!-- pagination -->
                         <div class="pagination text-small text-uppercase text-extra-dark-gray mt-4">
                             <ul>
-                                <!-- <li><a href="#"><i class="fas fa-long-arrow-alt-left me-1 d-none d-sm-inline-block"></i> Prev</a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">Next <i class="fas fa-long-arrow-alt-right ms-1 d-none d-sm-inline-block"></i></a></li> -->
-                                    <% for(let i=1; i<=countProduct; i++){ %>
+                                <li><a href="#"><i class="fas fa-long-arrow-alt-left me-1 d-none d-sm-inline-block"></i> Prev</a></li>
+                               
+                                <% for(let i=1; i<=countpro; i++){ %>
                                     <li class="active"><a href="?page=<%=i%>"> <%= i %></a></li>
                                    <% } %>
                            
+                                <li><a href="#">Next <i class="fas fa-long-arrow-alt-right ms-1 d-none d-sm-inline-block"></i></a></li> 
+
                             </ul>
                         </div>
                         <!-- end pagination -->
@@ -402,46 +416,7 @@
     <!-- all js include start -->
 
     <!-- jQuery -->
-    <script>
-        function sendData(e){
-         const searchResults = document.getElementById('searchResults')
-         let match = e.value.match(/^[a-zA-Z]*/)
-         let match2= e.value.match(/\s*/)
-         if(match2[0]==e.value){
-             searchResults.innerHTML='';
-             return
-         }
-         if(match[0]==e.value){
-             fetch('getProducts',{
-             method:'POST',
-             headers:{'Content-Type':'application/json'},
-             body:JSON.stringify({payload:e.value})
-
-         }).then(res => res.json()).then(data => {
-
-         let search=data.search;
-         
-         searchResults.innerHTML='';
-
-         if(search.length < 1){
-             searchResults.innerHTML='<h5 style="color: white;"> sorry item not found</h5>';
-                 return;
-         }
-         search.forEach((item,index)=>{
-
-             if(index > 0)searchResults.innerHTML += '<hr>';
-
-             searchResults.innerHTML += `<div onclick="window.location.href='/single-product/${item._id}'"class="d-flex"><img src="/products/${item.image[0]}" width="100px" alt=""><h5>${item.product_name}</h5></div>`
-
-             })
-         });
-     
-             return
-         }
-
-         searchResults.innerHTML='';
-     }
-     </script>
+   
     <script src="/users/js/jquery.min.js"></script>
 
     <!-- popper js -->
@@ -485,6 +460,39 @@
             })
         }
      </script>
+      <script>
+        function addToCart(prodId){
+            $.ajax({
+                url:'/addtocart',
+                data : {
+                    productId : prodId
+                },
+                method : 'post',
+
+                success : (res) =>{
+                    if(res.success){
+                        Swal.fire({
+                            title : 'Added',
+                            text : 'product added to cart',
+                            position : 'center',
+                            icon : 'success',
+                            showConfirmButton : false,
+                            timer : 1000
+                        })
+                        
+                    }else{
+                        Swal.fire({
+                            title : 'Already Exist',
+                            text : 'product already in cart',
+                            icon : 'info',
+                            showConfirmButton :false,
+                            timer:1000
+                        })
+                    }
+                }
+            })
+        }
+    </script>
 </body>
 
 

@@ -2,6 +2,7 @@
  const Banner = require('../models/bannerModel')
  const fs = require('fs')
  const path = require('path')
+const bannerModel = require('../models/bannerModel')
 
  const loadbanner = async(req,res)=>{
     try {
@@ -30,13 +31,14 @@
         //     Images.push(file.filename)
         // }
         
-        const banner = new Banner({
-            image:req.file.filename,
-            type: req.body.bannertype,
-            description: req.body.description
+        const bannerData = new Banner({
+            bannerImage:req.file.filename,
+            offerName:req.body.offername,
+            subTitle:req.body.subTitle,
+            description:req.body.description,
         })
 
-        const result = await banner.save();
+        const result = await bannerData.save();
 
         if (result) {
             res.redirect("/admin/list-banner");
@@ -56,9 +58,9 @@ const loadeditBanner = async(req,res)=>{
         const banner = await Banner.findOne({_id:Id})
         console.log(banner);
 
-        if(banner){
+      
             res.render('edit-banner',{banner})
-        }
+      
     } catch (error) {
         console.log(error.nessage);
     }
@@ -67,14 +69,14 @@ const loadeditBanner = async(req,res)=>{
 const editBanner = async(req,res)=>{
     try {
         
-        const banner = await Banner.findByIdAndUpdate({_id : req.body.id},
-                {$set:{
-    
-                    type : req.body.bannertype,
-                    description:req.body.description,
-                    
-                }}) 
-        
+        const bannerId = req.query.id
+        const filename=req.file.filename
+        const bannerData = await Banner.updateOne({_id:bannerId},{$set:{
+            offerName:req.body.offername,
+            subTitle:req.body.subTitle,
+            description:req.body.description,
+            bannerImage:filename,
+        }})
             
         
         //  res.render('edit-Banner',{Banner,message:"success"})
@@ -85,43 +87,63 @@ const editBanner = async(req,res)=>{
         console.log(error.message);
     }
 }
-const updateImage = async(req,res)=>{
+// const updateImage = async(req,res)=>{
+//     try {
+//         const id = req.params.id
+//         console.log(id,"idparams");
+//         const bannerData = await Banner.findOne({_id : id})
+//         const imglength = bannerData.image.length
+//         if(imglength <= 4){
+//             let images = []
+//             for(file of req.files){
+//                 images.push(file.filename)
+//             }
+//             if(imglength+images.length <= 4){
+//                 const updateData = await Banner.updateOne({_id:id},{$addToSet:{image:{$each:images}}})
+//             }else{
+//                 const Banner = await Banner.findOne({_id : id})
+//                 res.render("edit-banner",{Banner,imgfull:true})
+//             }
+//         }else{
+//             res.redirect('/admin/edit-banner')
+//         }
+
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
+
+// const deleteImage = async(req,res)=>{
+//     try {
+//         const imgid = req.params.imgid
+//         console.log(imgid,"imgdeleteid");
+//         const bnrId = req.params.bnrId
+//         console.log(bnrId,"bannerimg");
+//         fs.unlink(path.join(__dirname,'../public/users/img/product-categories',imgid),()=>{})
+//         const BannerImg = await Banner.updateOne({_id:bnrId},{$pull:{image:imgid}})
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
+
+
+
+const unlistBanner = async(req,res)=>{
     try {
-        const id = req.params.id
-        console.log(id,"idparams");
+        const id = req.query.id
         const bannerData = await Banner.findOne({_id : id})
-        const imglength = bannerData.image.length
-        if(imglength <= 4){
-            let images = []
-            for(file of req.files){
-                images.push(file.filename)
-            }
-            if(imglength+images.length <= 4){
-                const updateData = await Banner.updateOne({_id:id},{$addToSet:{image:{$each:images}}})
-            }else{
-                const Banner = await Banner.findOne({_id : id})
-                res.render("edit-banner",{Banner,imgfull:true})
-            }
+        if(bannerData.unlist == false){
+            const unlist = await Banner.updateOne({_id : id},{$set : {unlist : true}})
+            res.redirect('/admin/list-banner')
         }else{
-            res.redirect('/admin/edit-banner')
+            const list = await Banner.updateOne({_id : id},{$set :{unlist : false}})
+            res.redirect('/admin/list-banner')
         }
-
     } catch (error) {
         console.log(error.message);
+        
     }
-}
-
-const deleteImage = async(req,res)=>{
-    try {
-        const imgid = req.params.imgid
-        console.log(imgid,"imgdeleteid");
-        const bnrId = req.params.bnrId
-        console.log(bnrId,"bannerimg");
-        fs.unlink(path.join(__dirname,'../public/users/img/product-categories',imgid),()=>{})
-        const BannerImg = await Banner.updateOne({_id:bnrId},{$pull:{image:imgid}})
-    } catch (error) {
-        console.log(error.message);
-    }
+    
 }
 
 
@@ -132,6 +154,7 @@ const deleteImage = async(req,res)=>{
     addBanner,
     loadeditBanner,
     editBanner,
-    updateImage,
-    deleteImage
+    // updateImage,
+    // deleteImage,
+    unlistBanner
  }

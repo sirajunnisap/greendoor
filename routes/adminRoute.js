@@ -15,6 +15,7 @@ admin_route.set('views','./views/admin');
 const path = require('path');
 const multer = require('multer');
 
+
 const storage = multer.diskStorage({
     destination:function(req,file,cb){
         cb(null,path.join(__dirname, '../public/users/img/product-categories'))
@@ -69,7 +70,7 @@ admin_route.post('/add-products',upload.single('image'),productController.addpro
 admin_route.get('/edit-product',auth.isLogin,productController.editProducts);
 admin_route.post('/edit-product/:id',productController.updateProduct);
 admin_route.get('/unlist-product',auth.isLogin,productController.unlistProduct);
-admin_route.post('/edit-image/:id',upload.array('image'),productController.updateImage)
+admin_route.post('/edit-image/:id',upload.array('image',4),productController.updateImage)
 admin_route.get('/delete-product-image/:imgid/:bnrId',productController.deleteImage)
 
 
@@ -94,12 +95,12 @@ admin_route.get('/orderPreview',orderController.orderedProducts)
 
 admin_route.get('/list-banner', bannerController.loadbanner)
 admin_route.get('/add-banner',bannerController.loadAddBanner)
-admin_route.post('/add-banner',upload.single('image'),bannerController.addBanner)
+admin_route.post('/add-banner',upload.single('bannerimage'),bannerController.addBanner)
 admin_route.get('/edit-banner',  bannerController.loadeditBanner)
-admin_route.post('/edit-banner/:id',  bannerController.editBanner)
-// admin_route.get('/unlist-banner',bannerController.unlistProduct);
-admin_route.post('/edit-image/:id',upload.array('image',4),bannerController.updateImage)
-admin_route.get('/delete-banner-image/:imgid/:bnrId',bannerController.deleteImage)
+admin_route.post('/edit-banner',upload.single('bannerimage'),  bannerController.editBanner)
+admin_route.get('/unlist-banner',bannerController.unlistBanner);
+// admin_route.post('/edit-image/:id',upload.array('image',4),bannerController.updateImage)
+// admin_route.get('/delete-banner-image/:imgid/:bnrId',bannerController.deleteImage)
 
 admin_route.get('/sales-report',orderController.loadSales)
 admin_route.post('/show-salesreprot', orderController.listSalesReport)

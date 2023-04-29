@@ -11,6 +11,7 @@ const showProfile = async(req,res)=>{
             
        
     } catch (error) {
+        res.render('500')
         console.log(error.message);
     }
 }

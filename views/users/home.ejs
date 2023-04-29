@@ -105,17 +105,18 @@
             
             <div class="slider-fade2 owl-carousel owl-theme w-100">
                 
-                <div class="item bg-img h-100 w-100 cover-background" data-overlay-dark="0" data-background="/users/img/slider/slide-10.jpg">
-                    <div class="container h-100 d-table">
-                        <div class="row d-table-cell align-middle h-100">
-                            <div class="col-lg-5">
-                                <h3 class="alt-font mb-2 h6 text-uppercase">New Arrivals</h3>
-                                <h3 class="display-16 display-sm-8 display-md-5 display-lg-3 mb-1-6 mb-lg-2-9" style="font-size: 3.5rem;">Decor Inspiration</h3>
-                                <a href="/products" class="butn-style4">Shop Now</a>
+                    <div class="item bg-img h-100 w-100 cover-background" data-overlay-dark="0" data-background="/users/img/slider/slide-10.jpg">
+                        <div class="container h-100 d-table">
+                            <div class="row d-table-cell align-middle h-100">
+                                <div class="col-lg-5">
+                                    <h3 class="alt-font mb-2 h6 text-uppercase">New Arrivals</h3>
+                                    <h1 class="display-16 display-sm-8 display-md-5 display-lg-3 mb-1-6 mb-lg-2-9">Decor Inspiration</h1>
+                                    <a href="shop-product-grid.html" class="butn-style4">Shop Now</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+            
                 <div class="item bg-img h-100 w-100 cover-background" data-overlay-dark="0" data-background="/users/img/slider/slide-11.jpg">
                     <div class="container h-100 d-table">
                         <div class="row d-table-cell align-middle h-100">
@@ -147,7 +148,7 @@
         <!-- BY STYLE
         ================================================== -->
         <section class="bg-trend" style="padding: 75px 0;">
-            <div class="container" style="max-width: 955px;">
+            <div class="container" style="max-width: 1000px;">
                 <div class="row align-items-center">
                    
 
@@ -155,11 +156,12 @@
                             <div class="pe-xl-6">
                                 <h2 class="h1 mb-1-6 mb-lg-1-9">Shop <br>By Style</h2>
                                 <p class="mb-1-6 mb-lg-1-9">Style any open air region with a few cautious review and cool headed choices.</p>
-                                <a href="/products" class="text-uppercase small font-weight-600 border-bottom border-color-black text-dark">All Categories</a>
+                                <!-- <a href="/products" class="text-uppercase small font-weight-600 border-bottom border-color-black text-dark">All Categories</a> -->
                             </div>
                         </div>
                         <div class="col-lg-9">
                             <div class="owl-carousel owl-theme by-trend-carousel text-center">
+                                
                                 <% category.forEach((category)=>{ %> 
                                     <%= console.log(category)%>
                                 <a href="/shopCategory/<%= category._id %>">
@@ -209,44 +211,52 @@
                     
                     
                     
-                    <br><br>
-                    <div class="col-lg-3 mb-1-9 mb-lg-0">
+                    <!-- <div class="col-lg-3 mb-1-9 mb-lg-0">
                         <div class="pe-xl-6">
                             <a href="/products" class="text-uppercase small font-weight-600 border-bottom border-color-black text-dark">See All Products</a>
                             
                         </div>
+                    </div> -->
+                    <div class="text-center mb-1-9 mb-lg-2-3 mt-lg-8">
+                        <!-- <h5 class="mb-0"></h5> -->
+                        <a href="/products" class="text-uppercase small font-weight-600 border-bottom border-color-black text-dark">See All Products</a>
                     </div>
-                    
                 </div>
             </div>
         </section>
 
         <!-- OFFER BANNER
         ================================================== -->
-        <section class="pt-0">
-            <div class="container-fluid px-lg-1-9 px-xl-6 px-xxl-13">
-                <div class="row mt-n4">
-                    <div class="col-md-6 mt-4">
-                        <div class="offer-style02">
-                            <img src="/users/img/bg/bg-5.jpg" alt="...">
-                            <div class="text-center position-absolute top-10 start-0 end-0">
-                                <span class="text-uppercase font-weight-500 text-white letter-spacing-2 d-block mb-2 mb-sm-3">new arrivals</span>
-                                <h2 class="h1 mb-2 text-white">Featured Deals</h2>
-                                <p class="text-white font-weight-600 display-29 d-none d-sm-block">Save on what's hot right now.</p>
-                                <a href="shop-product-grid.html" class="butn-style4 sm">Shop Now<span></span></a>
+        <section class="md">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-9 mx-auto">
+
+                        <div class="position-relative elements-block">
+                            <div class="owl-carousel owl-theme text-center">
+                               
+                                <% console.log(bannerData,"yuio")%>
+                                <% bannerData.forEach((bannerData)=>{%>
+                                    
+                                    <div class="item"> <div class="offer-style02">
+                                        <img src="/users/img/product-categories/<%=bannerData.bannerImage %>" alt="">
+                                        <div class="text-center position-absolute top-10 start-0 end-0">
+                                            <span class="text-uppercase font-weight-600 text-white letter-spacing-2 d-block mb-2 mb-sm-3"><%= bannerData.subTitle %></span>
+                                            <h2 class="h1 mb-2 text-white"><%= bannerData.offerName %> </h2>
+                                            <p class="text-white font-weight-600 display-29 d-none d-sm-block"><%= bannerData.description %></p>
+                                            <a href="/products" class="butn-style4 sm">Shop Now<span></span></a>
+                                        </div>
+                                    </div>
+
+                                    </div>
+
+                               <% }) %>
+
                             </div>
+
                         </div>
-                    </div>
-                    <div class="col-md-6 mt-4">
-                        <div class="offer-style02">
-                            <img src="/users/img/bg/bg-6.jpg" alt="...">
-                            <div class="text-center position-absolute top-10 start-0 end-0">
-                                <span class="text-uppercase font-weight-600 text-white letter-spacing-2 d-block mb-2 mb-sm-3">up to 50% off</span>
-                                <h2 class="h1 mb-2 text-white">Summer Sale</h2>
-                                <p class="text-white font-weight-600 display-29 d-none d-sm-block">Save on what's hot right now.</p>
-                                <a href="shop-product-grid.html" class="butn-style4 sm">Shop Now<span></span></a>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>

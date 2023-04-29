@@ -176,40 +176,44 @@
           <div class="card mb-4">
             
             <div class="card-body">
-                <form  action="/admin/editCoupon?id=<%=couponData._id%>" method="post" >
+                <form  action="/admin/editCoupon?id=<%=couponData._id%>" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
                     <div class="form-group">
                       <label for="">Coupon code</label>
                       <input type="text" class="form-control border pe-2 ps-2" id="" placeholder="coupon code" name="coupon_code" value="<%=couponData.couponCode%>" required>
+                      <div class="invalid-feedback">Please enter code</div>
                     </div>
                     
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="fixedandpercentage" value="fixed" id="flexRadioDefault1" required>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Fixed
+                        <input class="form-check-input" type="radio" name="fixedandpercentage" value="fixed" id="fixed-radio" required <%= couponData.couponAmountType === 'fixed' ? 'checked' : '' %>>
+                        <label class="form-check-label" for="fixed-radio">
+                          Fixed
                         </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="fixedandpercentage" value="percentage" id="flexRadioDefault2" >
-                        <label class="form-check-label" for="flexRadioDefault2">
-                            Percentage
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="fixedandpercentage" value="percentage" id="percentage-radio" required <%= couponData.couponAmountType === 'percentage' ? 'checked' : '' %>>
+                        <label class="form-check-label" for="percentage-radio">
+                          Percentage
                         </label>
-                    </div>
+                      </div>
     
                     <div class="form-group">
                         <label for="">Amount</label>
                         <input type="number" class="form-control border pe-2 ps-2" id="" placeholder="coupon amount" name="couponamount" value="<%=couponData.couponAmount%>" required>
+                        <div class="invalid-feedback">Please enter amount</div>
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="">Min.Cart amount</label>
                                 <input type="number" class="form-control border pe-2 ps-2" id="" placeholder="Min.cart amount" name="cartamount" value="<%=couponData.minCartAmount%>" required>
+                                <div class="invalid-feedback">Please enter cart amount</div>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="">Min.Radeem amount</label>
                                 <input type="number" class="form-control border pe-2 ps-2" id="" placeholder="Min.radeem amount" name="radeemamount" value="<%=couponData.minRedeemAmount%>" required>
+                                <div class="invalid-feedback">Please enter radeem amount</div>
                             </div>
                         </div>
                     </div>
@@ -219,14 +223,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Start date</label>
-                                <input type="date" class="form-control border pe-2 ps-2" id="" placeholder="start date" name="startdate" value="<%=couponData.startDate.toLocaleDateString() %>" required>
+                                <input type="date" class="form-control border pe-2 ps-2" id="startdate" placeholder="start date" name="startdate" value="<%=formattedDate2 %>" required>
+                                <div class="invalid-feedback">Please enter start date</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                              <%console.log(couponData.expiryDate)%>
                                 <label for="">Expiry date</label>
-                                <input type="date" class="form-control border pe-2 ps-2" id="" placeholder="expiry date" name="expirydate" value="<%=couponData.expiryDate.toLocaleDateString() %>" required>
+                                <input type="date" class="form-control border pe-2 ps-2" id="expirydate" placeholder="expiry date" name="expirydate" value="<%= formattedDate1 %>" required>
+                                <div class="invalid-feedback">Please enter expiry date</div>
                             </div>
                         </div>
                     </div>
@@ -234,6 +239,7 @@
                     <div class="form-group">
                         <label for="">Usage limit</label>
                         <input type="text" class="form-control border pe-2 ps-2" id="" placeholder="limit" name="usagelimit" value="<%=couponData.limit%>" required>
+                        <div class="invalid-feedback">Please enter limit</div>
                     </div>
     
     
@@ -434,7 +440,26 @@
         </div>
 
     </div>
-
+<script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+          'use strict';
+  
+  
+          const forms = document.querySelectorAll('.needs-validation');
+  
+  
+          Array.prototype.slice.call(forms).forEach((form) => {
+            form.addEventListener('submit', (event) => {
+              if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        })();
+      </script>
 
 
     <%- include('./layout/footer.ejs') %>

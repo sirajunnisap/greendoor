@@ -17,7 +17,7 @@ const categorySchema = new mongoose.Schema({
     },
     unlist : {
         type : Boolean,
-        default : false
+        default : true
     }
 })
 

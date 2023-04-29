@@ -33,18 +33,30 @@ const addCoupon = async(req,res) => {
         console.log(error.message);
     }
 }
-
 const editCoupon = async(req,res) => { 
     try{
         const couponId = req.query.id
         const couponData = await Coupon.findOne({_id:couponId})
-        res.render('editCoupon',{couponData})
 
-    }catch(error){
-        
+        // Convert ISO date to Date object
+        const expiryDate = new Date(couponData.expiryDate);
+        const startDate = new Date(couponData.startDate);
+
+        // Format the date as "YYYY-MM-DD" (e.g. "2023-04-30")
+        const formattedDate1 = expiryDate.toISOString().slice(0, 10);
+        const formattedDate2 = startDate.toISOString().slice(0, 10);
+        res.render('editCoupon', {
+            couponData,
+            formattedDate1,
+            formattedDate2,
+             // pass the formatted date as a variable to the view
+        });
+
+    }catch(error){   
         console.log(error.message);
     }
 }
+
 const updateCoupon = async(req,res) => { 
     try{
         const couponId = req.query.id

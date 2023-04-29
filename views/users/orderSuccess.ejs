@@ -148,7 +148,7 @@
             </div>
         </section>
         
-  <!-- Modal -->
+        <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -297,7 +297,7 @@
                             </thead>
                             <tbody>
                               <%orderData.items.forEach((product,index) => { %>
-                                <%= console.log(orderData.items,"ordersdrer")%>
+                              <% console.log(product)%>
                               <tr class="invoice-items">
                                 <td><%= index+1 %></td>
                                 <td ><%= product.name%></td>
@@ -384,6 +384,8 @@
   </script>
     </div> 
   </section>
+  
+   
         
         <!-- FOOTER
         ================================================== -->

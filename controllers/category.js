@@ -37,7 +37,6 @@ const addCategories = async (req,res)=>{
             res.render('add-category',{message:'This Category already Exist'})
             exist=null
         }else{
-            const filename=req.file.filename
             const category = new Category({
                 name:catUP,
                 description:req.body.description,

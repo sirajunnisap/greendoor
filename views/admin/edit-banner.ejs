@@ -96,98 +96,74 @@
                                         <% } %>
                                 </div>
                                 <div class="card-body">
-                                    <form class="needs-validation" novalidate action="/admin/edit-banner/<%= banner._id %>" method="post" id="updateProductForm">
-                                        <div class="row">
-                                            <div class="col-md-12 mb-3">
-                                                <label for="bannertype">Banner Type</label>
-                                                    <select class="form-control  col-4" id="bannertype" name="bannertype">
-                                                        <option value="">---Select Category---</option>
-                                                        <option value="sliding">Sliding Banner</option>
-                                                        <option value="category">Category Banner</option>
-                                                        <option value="offer">Offer Banner</option>
-                                                    </select>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="validationCustom02">Description</label>
-                                                <input type="text" class="form-control" id="validationCustom02" name="description" value="<%= banner.description %>" required>
-                                                
-                                            </div>
-                                            
-                                            
-                                           
-                                            
-                                            
-                                            <div>
-                                                <% for(var i=0 ; i<=3;i++){ %>
-                                                <img src="/users/img/product-categories/<%= banner.image[i] %>" alt="" style="width: 100px;">
-                                               <% } %>
-                                            </div>
-                                            <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                Edit image
-                                            </button>
-                                            <% if(typeof imgfull !== 'undefined'){ %>
-                                                <p style="color:red;">image limit is full</p>
-                                           <% } %>
-                                            <input type="hidden" name="id" value="<%= banner._id %>">
-                                      
-                                            <button type="submit" class="btn btn-primary" value="Update Category">Submit</button>
+                                   
+                <form action="/admin/edit-banner?id=<%= banner._id%>" method="post" enctype="multipart/form-data" >
+                    <button  type="submit" class="btn btn-warning">Save</button>
+                    <div class="row">
+                        <div class="col-md-7  mt-4">
+                            <div class="card h-100">
+                                <div class="card-header pb-0 px-3">
+                                    <h6 class="mb-0">Basic informations</h6>
+                                </div>
+                                <div class="card-body pt-4 p-3">
 
-                                            <% 
-                                            if(typeof message !== 'undefined'){
-                                                %>
-                                                <div class="alert alert-success" role="alert">
-                                                <%= message %>
-                                            </div>
-                                            <%
-                                            }
-                                            %>
-                                            
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1 text-dark">Sub Title </label>
+                                        <input type="text" class="form-control border px-2"
+                                            id="exampleFormControlInput1" placeholder="" name="subTitle" value="<%= banner.subTitle %>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1 text-dark">Offer Name</label>
+                                        <input type="text" class="form-control border px-2"
+                                            id="exampleFormControlInput1" placeholder="" name="offername" value="<%= banner.offerName %>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1 text-dark">Description</label>
+                                        <input type="text" class="form-control border px-2"
+                                            id="exampleFormControlInput1" placeholder="" name="description" value="<%= banner.description %>" required>
+                                    </div>
+                                    <!-- <div class="form-group">
+                                        <label for="exampleFormControlInput1 text-dark">Old price</label>
+                                        <input type="number" class="form-control border px-2"
+                                            id="exampleFormControlInput1" placeholder="" name="actualprice" value="<%= banner.oldPrice %>">
+                                    </div> -->
+                                    <div>
+                                          <img src="/users/img/product-categories/<%= banner.bannerImage %>" alt="" style="width: 100px;">
+                                          
+                                      </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 mt-4">
+                            <div class="card h-100 mb-4">
+                                <div class="card-header pb-0 px-3">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h6 class="mb-0">Image uploads</h6>
                                         </div>
-                                    </form>
+                                    </div>
+                                </div>
+                                <div class="card-body pt-4 p-3">
+                                    <!-- here to pastee -->
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Example file input</label><br>
+                                        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="bannerimage"  required accept=".jpg, .jpeg, .png, .gif, .webp">
 
+                                    </div>
+                          
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
                                 </div>
                             </div>
                            
                             
-                        </div>
-                                
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Image</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        
-          <form action="/admin/edit-banner-image/<%= banner._id %>" method="post" enctype="multipart/form-data">
-            <div class="modal-body">
-            <div>  
-              <label class="form-label" for="basic-default-message">Image</label>
-              <input type="file" multiple name="image" style="border: 1px solid #000;">
-          </div>
-            <br>
-  
-            <% banner.image.forEach((x)=>{ %>
-              <div style="background-color: rgb(255, 255, 255);width: 100%;height: 80px;border: solid;">
-              <img style="width: 80px; height: 80px;" src="/users/img/product-categories/<%= x %>" alt="">
-              <a href="/admin/delete-banner-image/<%= x %>/<%- banner._id %> " style="float: right;" class="btn btn-danger my-3">delete</a>
-              </div>
-              <% }) %>
-              <br>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
-          
-          </form>
-        
-        
-      </div>
-    </div>
-  </div>
-          
+         
                     </div>
                     <!-- end row -->
                 </div>

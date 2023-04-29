@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const { resetWatchers } = require('nodemon/lib/monitor/watch');
 const Product = require('../models/productsModel')
 const Category = require('../models/categoryModel')
-
+const Banner = require('../models/bannerModel')
 
 // const {TWILIO_SERVICE_SID,TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN} = process.env
 // const client = require('twilio')(TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN,{
@@ -219,9 +219,12 @@ const loadHome = async(req,res)=>{
             const userData = await User.findOne({_id : userId})
             const category = await Category.find({})
             console.log(category);
-            const product = await Product.find({unlist:true})
+            const product = await Product.find({unlist:false})
             const user = true
-            res.render('home',{userData,user,product,category})
+           
+            const bannerData = await Banner.find({unlist:false})
+           
+            res.render('home',{userData,user,product,category,bannerData,})
         }
         
     } catch (error) {

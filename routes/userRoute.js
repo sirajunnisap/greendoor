@@ -79,12 +79,12 @@ user_route.post('/getProducts',userController.searchProducts)
 // user_route.get('/ctrypdt',userController.findCategoryProduct);
 
 //product
-// // user_route.get('/products',productController.product_view);
+// user_route.get('/products',productController.product_view);
 user_route.get('/products',productController.loadProducts)
 user_route.get('/productDetails/:id',productController.productDetail);
 user_route.get('/shopCategory/:id',productController.loadShopCategory);
 // user_route.get('/products',productController.viewProduct);
-
+// user_route.get('/products',productController.loadShop)
 
 //wishlist
 user_route.get('/wishlist',wishlistController.loadWishlist);
@@ -122,6 +122,10 @@ user_route.get('/orderHistory',orderController.orderHistory);
 user_route.get('/returnRequested',orderController.returnRequest)
 user_route.get('/cancelreturnRequested',orderController.cancelReturnRequest)
 user_route.get('/cancelRequest',orderController.cancelRequest)
+
+
+user_route.post('/search',productController.searchProducts)
+user_route.get('/sort', productController.sort);
 
 
 // user_route.get('*', (req,res)=>{

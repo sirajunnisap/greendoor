@@ -101,12 +101,12 @@
                                             <div class="col-md-12 mb-3">
                                                 <label for="validationCustom01">Product Name</label>
                                                 <input type="text" class="form-control" id="validationCustom01" name="name" value="<%= product.name %>"  required>
-                                               
+                                                <div class="invalid-feedback">Please enter product Name</div>
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="validationCustom02">Price</label>
                                                 <input type="text" class="form-control" id="validationCustom02" name="price" value="<%= product.price %>" required>
-                                                
+                                                <div class="invalid-feedback">Please enter price</div>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="category">Category</label>
@@ -124,22 +124,24 @@
                                                     </option>
                                                     <% }) %>
                                                 </select>
+                                                <div class="invalid-feedback">Please enter category</div>
                                               </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="validationCustom03">Description</label>
                                                 <input type="text" class="form-control" id="validationCustom03" name="description" value="<%= product.description %>" required>
-                                                
+                                                <div class="invalid-feedback">Please enter description</div>
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="validationCustom04">Quantity</label>
                                                 <input type="text" class="form-control" id="validationCustom04" name="quantity" value="<%= product.quantity %>" required>
-                                               
+                                                <div class="invalid-feedback">Please enter quantity</div>
                                             </div>
                                             
                                             <div>
                                                 <% for(var i=0 ; i<=3;i++){ %>
                                                 <img src="/users/img/product-categories/<%= product.image[i] %>" alt="" style="width: 100px;">
                                                <% } %>
+                                               <div class="invalid-feedback">Please enter image</div>
                                             </div>
                                             <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                 Edit image
@@ -424,5 +426,26 @@ $(document).ready(function() {
     });
 });
 </script>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (() => {
+      'use strict';
+
+
+      const forms = document.querySelectorAll('.needs-validation');
+
+
+      Array.prototype.slice.call(forms).forEach((form) => {
+        form.addEventListener('submit', (event) => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    })();
+  </script>
    
     <%- include('./layout/footer.ejs') %>

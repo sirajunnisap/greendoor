@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from smartshop.websitelayout.net/shop-product-grid.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:39 GMT -->
+<head>
+
+    <!-- metas -->
+    <meta charset="utf-8">
+    <meta name="author" content="Chitrakoot Web" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="keywords" content="Multipurpose eCommerce Template + Admin" />
+    <meta name="description" content="Smartshop - Multipurpose eCommerce Template + Admin" />
+ <!-- title  -->
+    <title>Smartshop - Multipurpose eCommerce Template + Admin</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/user/img/logos/favicon.png">
+    <link rel="apple-touch-icon" href="/user/img/logos/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/user/img/logos/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/user/img/logos/apple-touch-icon-114x114.png">
+
+    <!-- plugins -->
+    <link rel="stylesheet" href="/user/css/plugins.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- theme core css -->
+    <link href="/users/css/styles.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- PAGE LOADING
+    ================================================== -->
+    <div id="preloader"></div>
+
+    <!-- MAIN WRAPPER
+    ================================================== -->
+    <div class="main-wrapper mp-pusher" id="mp-pusher">
+
+        <!-- HEADER
+        ================================================== -->
+        <header class="fixed header-light-nav">
+
+            
+
+            <div class="navbar-default">
+
+                <!-- top search -->
+                <div class="top-search bg-primary">
+                    <div class="container-fluid">
+                        
+                            <div class="input-group">
+                                <span class="input-group-addon cursor-pointer">
+                                    <button class="search-form_submit fas fa-search display-27 text-white" type="submit"></button>
+                                </span>
+                                <input type="text" onkeyup="sendData(this)" class="search-form_input form-control" name="s" autocomplete="off" placeholder="Type & hit enter...">
+                                <span class="input-group-addon close-search"><i class="fas fa-times display-27 mt-2"></i></span>
+                            </div>
+                            <section id="searchResults" style="width: fit-content; height: fit-content;">
+
+                            </section>
+                        
+                    </div>
+                </div>
+                <!-- end top search -->
+
+                <div class="container-fluid p-0">
+                    <div class="row align-items-center g-0">
+                        <div class="col-12 col-lg-12">
+                            <div class="menu_area alt-font">
+                                <nav class="navbar navbar-expand-lg navbar-light p-0">
+
+                                    <!-- category toggler -->
+                                    <a href="#" id="trigger" class="menu-trigger"><i class="ti-menu"></i></a>
+                                    <!-- end category toggler -->
+
+                                    <div class="navbar-header navbar-header-custom">
+                                        <!-- logo -->
+                                        <a href="/" class="navbar-brand logodefault"><img id="logo" src="/img/elite logo2.png" alt="logo"></a>
+                                        <!-- end logo -->
+                                    </div>
+
+                                    <!-- menu toggler -->
+                                    <div class="navbar-toggler"></div>
+                                    <!-- end menu toggler -->
+
+                                    <!--- menu area -->
+                                    <ul class="navbar-nav mx-auto" id="nav" style="display: none;">
+
+                                        <li><a href="/">Home</a>
+                                            
+                                        </li>
+                                        <li><a href="/shop">Shop</a>
+                                            
+                                        </li>
+                                        <li><a href="/wishlist">Wishlist</a>
+                                            
+                                        </li>
+                                        <li><a href="#">Profile</a>
+                                            <ul>
+                                                
+                                                <li><a href="/profile">User Details</a></li>
+                                                <%if(user == true){ %>
+                                                    <li><a href="/logout">Log OUT</a></li>
+                                                    <% }else{ %>
+                                                        <li><a href="/login">Log In</a></li>
+                    
+                                                        <% } %>
+                                                
+                                                
+                                            </ul>
+                                        </li>
+                                                
+                                                
+                                            
+                                        
+                                    </ul>
+                                    <!-- end menu area -->
+
+
+                                    <!-- attribute navigation -->
+                                    <div class="attr-nav"  id="cartCount">
+                                        <ul>
+                                            <li class="dropdown me-3 me-lg-0">
+                                                <a href="/cart" class="" data-bs-toggle="">
+                                                    <i class="ti-bag"></i>
+                                                    <span class="badge bg-primary"></span>
+                                                </a>
+                                                
+                                            </li>
+                                            <li class="search"><a href="#"><i class="ti-search"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- end attribute navigation -->
+
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+        
+        
+
+        <!-- PAGE TITLE
+        ================================================== -->
+        <section class="page-title-section bg-img cover-background" data-background="/user/img/bg/page-title.jpg">
+            <div class="container">
+
+                <div class="title-info">
+                    <h1>Shop Product Grid</h1></div>
+                <div class="breadcrumbs-info">
+                    <ul class="ps-0">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="#">Shop Product Grid</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+        
+        <!-- PRODUCT GRID
+        ================================================== -->
+        <section class="md">
+            <div class="container">
+                <div class="row">
+
+                    <!-- sidebar panel -->
+                    <div class="col-lg-3 col-12 side-bar order-2 order-lg-1">
+                        
+                        <div class="widget" >
+
+                            <div class="widget-title">
+                                <h5>Select by Category</h5>
+                            </div>
+
+                            <div class="dropdown ec-select-inner" id="filter">
+                                <select id="category" name="parentCategory">
+                                  <option selected disabled>Category</option>
+                                  <% categoryData.forEach((category)=>{ %>
+                                  <option value="<%= category._id %>" class="dropdown-item"><%= category.categoryName %></option>
+                                  <% }) %>
+                                </select>
+                                <button id="button1" type="button" class="btn btn-primary mr-3 mt-2">
+                                    Select
+                                  </button>
+                              </div>
+                            
+                        </div>
+
+                        <div class="widget">
+                            <div class="widget-title">
+                                <h5>Price Range</h5>
+                            </div>
+                            <div class="col-auto my-1 my-md-0">
+                                <span class="sort-by">Sort by</span>
+                                <div class="ec-select-inner">
+                                <select name="sort" id="sort">
+                                    <option selected disabled>Price</option>
+                                    <option value="low-to-high">Low to High</option>
+                                    <option value="high-to-low">High to Low</option>
+                                </select>
+                                </div>
+                            </div>
+                        </div>
+
+                       
+                        
+                    </div>
+                    <!-- end sidebar panel -->
+
+                    <!-- right panel section -->
+                    <div class="col-lg-9 col-12 ps-lg-1-9 order-1 order-lg-2 mb-1-9 mb-lg-0">
+
+                        <div class="row g-0 align-items-center bg-light rounded p-3 mb-1-9">
+
+                            <div class="col-12 col-md my-1 my-md-0 text-center text-md-start font-weight-600">Showing 1–9 of 27 results</div>
+
+                            <div class="col-12 col-md-auto">
+
+                                <div class="row justify-content-center">
+                                    
+                                    
+                                    <!-- <button type="button" id="button1"></button> -->
+                                    <form action="">
+                                        <div class="col-auto my-1 my-md-0">
+                                            <label class="m-0" >Search</label>
+                                            <input type="text" id="searchField" name="search" placeholder="enter the peoduct name">
+                                        </div>
+                                        <button class="submit" type="submit"></button>
+                                    </form>
+                                    
+
+                                    
+
+                                    
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row justify-content-center" id="product">
+                            <%=console.log(product.length)%>
+                            <%if(product.length == 0){ %>
+                                
+                                <h1>product is empty</h1>
+                                
+                                <%} else{
+                                    product.forEach((x) => { 
+                                        %> 
+        
+                                    <div class="col-11 col-sm-6 col-xl-4 mb-1-9">
+                                        <div class="product-grid">
+                                            <div class="product-img">
+                                                <a href="/single-product/<%= x._id %>"><img src="/products/<%= x.image[0] %>" alt="..."></a>
+                                            </div>
+                                            <div class="product-description">
+                                                <h3><a href="/single-product/<%= x._id %>"><%= x.product_name %></a></h3>
+                                                <h4 class="price">
+                                                                <span class="offer-price">₹<%= x.price %></span>
+                                                            </h4>
+                                            </div>
+                                            <div class="product-buttons">
+                                                <ul class="ps-0">
+                                                    <li><a onclick="addToWishlist('<%=x._id%>')" class="btn-link" title="Add To Wishlist"><i class="far fa-heart"></i></a></li>
+                                                    <li><a onclick="addToCart('<%=x._id%>')" " class="butn-style2" title="Add to Cart">Add to Cart</a></li>
+                                                    <li><a href="/single-product/<%= x._id %>" class="btn-link" title="Add To Compare"><i class="fas fa-random"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% })} %>
+                        </div>
+                        <!-- pagination -->
+                        
+                        <div class="pagination text-small text-uppercase text-extra-dark-gray mt-4">
+                            
+                            <ul class="ec-pro-pagination-inner">
+                              <% for (let i=1; i <=totalPages; i++) { %> <% if (i===currentPage)
+                              { %>
+                              <li>
+                                <a onclick="toAjax('<%= i%>')"><%= i %></a>
+                              </li>
+                              <% } else { %>
+                              <li><a onclick="toAjax('<%=i%>')"><%= i %></a></li>
+                              <% } %> <% } %>
+                              <li>
+                                <!-- <a class="next" href="#"
+                                  >Next <i class="ecicon eci-angle-right"></i
+                                ></a> -->
+                              </li>
+                            </ul>
+                          </div>
+                        <!-- end pagination -->
+                    </div>
+                    <!-- end right panel section -->
+                </div>
+            </div>
+        </section>
+        <script>
+            let categoryId;
+            const searchInput = document.querySelector("#searchField");
+        
+            searchInput.addEventListener("input", (event) => {
+              const search = event.target.value;
+              const searchValue = search;
+              console.log(searchValue);
+              toAjax();
+            });
+        
+            // Filtering the products
+            // $("a.dropdown-item").click(function (e) {
+            //   e.preventDefault();
+            //   categoryId = $(this).data("category");
+        
+            //   toAjax();
+            // });
+        
+            $(document).ready(function () {
+            
+              $("#button1").click(function () {
+                categoryId = $("#category :selected").val();
+            // $("#button1").click(function () {
+            //     var checked = $("input[type=checkbox]:checked");
+            //     var categoryIds = checked.map(function() {
+            //     return $(this).val();
+            // }).get();
+                console.log(categoryId);
+                toAjax();
+              });
+            });
+        
+            const sortSelect = document.getElementById("sort");
+            console.log(sortSelect);
+        
+            sortSelect.addEventListener("change", (event) => {
+              const selectedValue = event.target.value;
+              toAjax();
+            });
+        
+            function toAjax(page) {
+              $.ajax({
+                url: "/shop",
+                data: {
+                  categoryId: categoryId,
+                  sort: sortSelect.value,
+                  page: page,
+                  search: searchInput.value,
+                  isRender: "true",
+                },
+                method: "get",
+                success: (response) => {
+                  let html = "";
+                  for (let i = 0; i < response.pageProducts.length; i++) {
+                    html += `
+        
+                                    <div class="col-11 col-sm-6 col-xl-4 mb-1-9">
+                                        <div class="product-grid">
+                                            <div class="product-img">
+                                                <a href="/single-product/${response.pageProducts[i]._id}"><img src="/products/${response.pageProducts[i].image[0]}" alt="..."></a>
+                                            </div>
+                                            <div class="product-description">
+                                                <h3><a href="/single-product/${response.pageProducts[i]._id}">${response.pageProducts[i].product_name}</a></h3>
+                                                <h4 class="price">
+                                                                <span class="offer-price">₹${response.pageProducts[i].price} </span>
+                                                            </h4>
+                                            </div>
+                                            <div class="product-buttons">
+                                                <ul class="ps-0">
+                                                    <li><a onclick="addToWishlist('${response.pageProducts[i]._id}')" class="btn-link" title="Add To Wishlist"><i class="far fa-heart"></i></a></li>
+                                                    <li><a onclick="addToCart('${response.pageProducts[i]._id}')" " class="butn-style2" title="Add to Cart">Add to Cart</a></li>
+                                                    <li><a href="/single-product/${response.pageProducts[i]._id}" class="btn-link" title="Add To Compare"><i class="fas fa-random"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                        `;
+                        console.log(response.pageProducts[i]);
+                  }
+                  document.getElementById("product").innerHTML = html;
+                },
+                fail: (error) => {
+                  console.error(error);
+                },
+              });
+            }
+          </script>
+        
+        <!-- FOOTER
+        ================================================== -->
+        <footer class="classic-footer bordered">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-2-3 mb-lg-0">
+                        <h3>Contact Us</h3>
+                        <ul class="list-style mb-2 ps-0">
+                            <li>
+                                <strong>Address:</strong><span class="ps-1">74 Guild Street 542B, Town MT.</span>
+                            </li>
+                            <li>
+                                <strong>Phone: </strong><span class="ps-1">(+44) 123 456 789</span>
+                            </li>
+                            <li>
+                                <strong>Email: </strong><span class="ps-1">addyour@emailhere</span>
+                            </li>
+                        </ul>
+                        <ul class="list-style-two mb-0 ps-0">
+                            <li>
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-2-3 mb-lg-0">
+                        <div class="row">
+                            <div class="col-md-6 col-6 pe-lg-0">
+                                <h3>Quick Links</h3>
+                                <ul class="list-style ps-0">
+                                    <li><a href="#">News</a></li>
+                                    <li><a href="#">History</a></li>
+                                    <li><a href="#">Our shop</a></li>
+                                    <li><a href="#">Secure shopping</a></li>
+                                    <li><a href="#">Privacy policy</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6 col-6 pe-lg-0">
+                                <h3>My Account</h3>
+                                <ul class="list-style ps-0">
+                                    <li><a href="#">My Account</a></li>
+                                    <li><a href="#">Order History</a></li>
+                                    <li><a href="#">Wish List</a></li>
+                                    <li><a href="#">Newsletter</a></li>
+                                    <li><a href="#">Returns</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="ps-lg-1-9">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-6 mb-1-9">
+                                    <h3>News Letter</h3>
+                                    <form method="post">
+                                        <div class="form-group footer-subscribe">
+                                            <input type="email" placeholder="Subscribe with us" id="email" class="form-control">
+                                            <a href="#" class="butn-style2"><i class="fas fa-paper-plane display-27 mt-1"></i></a>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <h3>Download Our Mobile Apps</h3>
+                                    <div class="text-start">
+                                        <a href="#" class="btn bordered text-start ms-1 ms-md-0 mt-1 mt-md-0 mb-0 mb-lg-2 mb-xl-0">
+                                            <span class="media align-items-center">
+                                        <span class="fab fa-apple display-26 pe-3"></span>
+                                            <span class="media-body">
+                                            <span class="d-block display-32">Download on the</span>
+                                            <strong>App Store</strong>
+                                            </span>
+                                            </span>
+                                        </a>
+                                        <a href="#" class="btn bordered text-start ms-1 ms-lg-0 ms-xl-1 mt-1 mt-md-0">
+                                            <span class="media align-items-center">
+                                        <span class="fab fa-google-play display-26 pe-3"></span>
+                                            <span class="media-body">
+                                            <span class="d-block display-32">Get it on</span>
+                                            <strong>Google Play</strong>
+                                            </span>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom py-1-9 mt-6 mt-lg-8">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="text-center text-md-start">
+                                <p class="mb-0">&copy; <span class="current-year"></span> Smartshop is Powered by <a href="https://www.chitrakootweb.com/" target="_blank" class="text-dark">Chitrakoot Web</a></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-style-17 text-center text-md-end">
+                                <li><img src="/user/img/content/payment-options/visa.png" alt="..."></li>
+                                <li><img src="/user/img/content/payment-options/mastercard.png" alt="..."></li>
+                                <li><img src="/user/img/content/payment-options/paypal.png" alt="..."></li>
+                                <li><img src="/user/img/content/payment-options/amex.png" alt="..."></li>
+                                <li><img src="/user/img/content/payment-options/discover.png" alt="..."></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        
+    </div>
+    
+    <!-- SCROLL TO TOP
+    ================================================== -->
+    <a href="#" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+    
+    <!-- all js include start -->
+    
+<script>
+    function sendData(e){
+        const searchResults=document.getElementById('searchResults')
+        let match = e.value.match(/^[a-zA-Z]*/)
+        let match2= e.value.match(/\s*/)
+        if(match2[0]==e.value){
+            searchResults.innerHTML='';
+            return
+        }
+        if(match[0]==e.value){
+            fetch('getProducts',{
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({payload:e.value})
+        }).then(res => res.json()).then(data => {
+            let search=data.search;
+            
+            searchResults.innerHTML='';
+            if(search.length < 1){
+                searchResults.innerHTML='<p>soory not found<p>';
+                    return;
+            }
+            search.forEach((item,index)=>{
+                if(index > 0)searchResults.innerHTML += '<hr>';
+                searchResults.innerHTML += `<div onclick="window.location.href='/single-product/${item._id}'"class="d-flex"><img src="/products/${item.image[0]}" width="100px" alt=""><p>${item.product_name}</p></div>`
+            })
+        });
+        
+            return
+        }
+        searchResults.innerHTML='';
+    }
+</script>
+    <script>
+        function addToCart(prodId) {
+            // let count = document.querySelector('.cart-count')
+            // let val = parseInt(count.textContent)
+            $.ajax({
+                url: '/add-to-cart',
+                data: {
+                    productId: prodId
+                },
+                method: 'post',
+                success: (res) => {
+                    // console.log(success)
+                    if(res){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Your product added to cart',
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Item already exist!',
+                           
+                        })
+                    }
+                }
+            })
+        }
+    </script>
+    <script>
+        function addToWishlist(prodId) {
+            $.ajax({
+                url: '/add-to-wishlist',
+                data: {
+                    productId: prodId
+                },
+                method: 'post',
+                success: (res) => {
+                    if(res.status){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Your product added to wishlist',
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+                    }else {
+                        
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Item already exist!',
+                           
+                        })
+                        
+                    }  
+                }
+            })
+        }
+    </script>
+    <!-- jQuery -->
+    <script src="/user/js/jquery.min.js"></script>
+    <!-- popper js -->
+    <script src="/user/js/popper.min.js"></script>
+    <!-- bootstrap -->
+    <script src="/user/js/bootstrap.min.js"></script>
+    <!-- core.min.js -->
+    <script src="/user/js/core.min.js"></script>
+    <!-- custom scripts -->
+    <script src="/user/js/main.js"></script>
+	
+	<!-- all js include end -->
+</body>
+<!-- Mirrored from smartshop.websitelayout.net/shop-product-grid.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:39 GMT -->
+</html>
