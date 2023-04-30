@@ -33,22 +33,26 @@ const addCoupon = async(req,res) => {
         console.log(error.message);
     }
 }
+
 const editCoupon = async(req,res) => { 
     try{
         const couponId = req.query.id
         const couponData = await Coupon.findOne({_id:couponId})
 
         // Convert ISO date to Date object
-        const expiryDate = new Date(couponData.expiryDate);
         const startDate = new Date(couponData.startDate);
 
+        const expiryDate = new Date(couponData.expiryDate);
+
         // Format the date as "YYYY-MM-DD" (e.g. "2023-04-30")
-        const formattedDate1 = expiryDate.toISOString().slice(0, 10);
-        const formattedDate2 = startDate.toISOString().slice(0, 10);
+        const formattedDate1 = startDate.toISOString().slice(0, 10);
+
+        const formattedDate2 = expiryDate.toISOString().slice(0, 10);
+
         res.render('editCoupon', {
             couponData,
             formattedDate1,
-            formattedDate2,
+            formattedDate2
              // pass the formatted date as a variable to the view
         });
 
@@ -78,21 +82,30 @@ const updateCoupon = async(req,res) => {
         console.log(error.message);
     }
 }
-const deleteCoupon = async(req,res) => { 
-    try{
-        const couponId = req.query.id
-        const update = await Coupon.updateOne({_id:couponId},{$set:{disable:true}})
-        res.redirect('/admin/coupon')
 
-    }catch(error){
-        
+
+
+const unlistcoupon = async(req,res)=>{
+    try {
+        const id = req.query.id
+        const couponData = await Coupon.findOne({_id : id})
+        if(couponData.unlist == false){
+            const unlist = await Coupon.updateOne({_id : id},{$set : {unlist : true}})
+            res.redirect('/admin/coupon')
+        }else{
+            const list = await Coupon.updateOne({_id : id},{$set :{unlist : false}})
+            res.redirect('/admin/coupon')
+        }
+    } catch (error) {
         console.log(error.message);
+        
     }
+    
 }
 module.exports = {
     loadCoupon,
     addCoupon,
     editCoupon,
     updateCoupon,
-    deleteCoupon
+    unlistcoupon
 }

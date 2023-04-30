@@ -38,7 +38,7 @@
                                         <li><a href="/home">Home</a>
                                             
                                         </li>
-                                        <li><a href="/shop">Shop</a>
+                                        <li><a href="/products">Shop</a>
                                             
                                         </li>
                                         <li><a href="/wishlist">Wishlist</a>
@@ -68,7 +68,7 @@
                                     <!-- attribute navigation -->
                                     <div class="attr-nav" id="cartCount">
                                         <ul>
-                                            <%if(user == true){ %>
+                                           
                                             <li class="dropdown me-3 me-lg-0" >
                                                 <a href="/cart" class="" data-bs-toggle="">
                                                     <i class="ti-bag"></i>
@@ -76,14 +76,14 @@
                                                 </a>
                                                 
                                             </li>
-                                            <% }else{ %>
-                                                <li class="dropdown me-3 me-lg-0">
+                                            
+                                                <!-- <li class="dropdown me-3 me-lg-0">
                                                     <a href="/login" class="" data-bs-toggle="">
                                                         <i class="ti-bag"></i>
                                                         <span class="badge bg-primary"></span>
                                                     </a>
-                                                </li>
-                                                <% } %>
+                                                </li> -->
+                                               
                                             <li class="search"><a href="#"><i class="ti-search"></i></a></li>
                                         </ul>
                                     </div>
@@ -192,7 +192,12 @@
                                         <!-- <td class="text-start">
                                             Stock In
                                         </td> -->
-                                      <td><button class="butn-style2 me-3 mb-2 mb-md-0" onclick="addToCart('<%=wishlist[i].productId._id%>')"><span><i class="fas fa-shopping-cart me-1"></i> Add to Cart</span></button></td>
+                                        <% if(wishlist[i].productId.quantity <=0 ){%>
+                                            <td></td>
+                                        <% }else{ %> 
+                                            <td><button class="butn-style2 me-3 mb-2 mb-md-0" onclick="addToCart('<%=wishlist[i].productId._id%>')"><span><i class="fas fa-shopping-cart me-1"></i> Add to Cart</span></button></td>
+                                         <% }%>
+                                      
                                        
                                        <td class="product-remove text-center">
                                         <a onclick="deletecartproduct('<%= userData._id %>','<%= wishlist[i].productId._id%>')"><i class="fas fa-times"></i></a>

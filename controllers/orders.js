@@ -248,7 +248,7 @@ const place_order = async(req,res)=>{
             key_id: process.env.KEY_ID,
             key_secret: process.env.KEY_SECRET,
           });
-          let amount = total;
+          let amount = totel;
           instance.orders.create(
             {
               amount: amount * 100,
@@ -508,34 +508,6 @@ const cancelReturnRequest = async(req,res)=>{
 }
 
 
-// const orderView = async (req, res) => {
-//   try {
-//       const Id = req.query.id
-//       console.log(Id);
-//       const orders = await Order.findOne({ Orderid: Id }).populate({ path: 'items', populate: { path: 'productId', model: 'Product' } })
-//       console.log(orders, "orders");
-//       if (orders) {
-
-//           res.render('orderView', { orders })
-//       }
-      
-        
-//   } catch (error) {
-//       console.log(error.message);
-//   }
-// }
-
-// const orderList = async (req,res) => { 
-//   try{
-//       const id = req.session.user_id
-//       const orders = await Order.find({userId:id}).populate({path:'items',populate:{path:'productId',model:'Product'}})
-//       res.render('users/orderList',{orders})
-//   }catch(error){
-//       res.render('uses/500')
-//       console.log(error.message);
-//   }
-// }
-
 
 const orderedProducts = async(req,res) => { 
    try{
@@ -611,7 +583,6 @@ module.exports = {
     returnRequest,
     cancelRequest,
     cancelReturnRequest,
-    // orderView
     orderedProducts,
     loadSales,
     listSalesReport

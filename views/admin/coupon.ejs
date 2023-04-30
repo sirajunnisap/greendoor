@@ -207,14 +207,12 @@
                                         <label class="form-check-label" for="flexRadioDefault1">
                                             Fixed
                                         </label>
-                                        
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="fixedandpercentage" value="percentage" id="flexRadioDefault2">
                                         <label class="form-check-label" for="flexRadioDefault2">
                                             Percentage
                                         </label>
-                                        
                                     </div>
                     
                                     <div class="form-group">
@@ -352,7 +350,22 @@
                     
                                         <td class="align-middle">
                                           <a href="/admin/editCoupon?id=<%=couponsData[i]._id %>" class="btn btn-danger btn-sm align-items-center">EDIT</a>
-                                          <a href="/admin/deleteCoupon?id=<%=couponsData[i]._id %>" class="btn btn-danger btn-sm align-items-center">Delete</a>
+                                          
+
+                                        </td>
+
+                                        <td><% if(couponsData[i].unlist == true){
+                                            %>
+                                            <span class="badge rounded-pill bg-soft-pink">unlist</span>
+                                           <% }else {
+                                            %>
+                                            <span class="badge rounded-pill bg-soft-green">list</span>
+                                        <%   
+                                           } %>
+                                            </td>  
+                                    <td><a href="/admin/unlist-coupon?id=<%= couponsData[i]._id %>">
+                                                <button class="btn btn-danger mr-2">Delete</button>
+                                            </a>
                                         </td>
                                       </tr>
                     
@@ -580,12 +593,7 @@
 
     </div>
 
-    <!-- BUY TEMPLATE
-    ================================================== -->
-    <div class="buy-theme alt-font d-none d-lg-inline-block"><a href="https://wrapbootstrap.com/theme/smartshop-multipurpose-ecommerce-template-WB0N7CT4D" target="_blank"><i class="fas fa-cart-plus"></i><span>Buy Template</span></a></div>
-
-    <div class="all-demo alt-font d-none d-lg-inline-block"><a href="https://www.chitrakootweb.com/contact.html" target="_blank"><i class="far fa-envelope"></i><span>Quick Question?</span></a></div>
-
+    
     <!-- SCROLL TO TOP
      ================================================== -->
     <a href="#" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>

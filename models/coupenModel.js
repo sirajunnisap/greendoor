@@ -33,7 +33,7 @@ const couponSchema = new mongoose.Schema({
     used:{
         type:Array
     },
-    disable:{
+    unlist:{
         type:Boolean,
         default:false,
     }

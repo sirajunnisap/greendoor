@@ -56,7 +56,7 @@
                                         <li><a href="/home">Home</a>
                                             
                                         </li>
-                                        <li><a href="/shop">Shop</a>
+                                        <li><a href="/products">Shop</a>
                                             
                                         </li>
                                         <li><a href="/wishlist">Wishlist</a>
@@ -86,7 +86,7 @@
                                     <!-- attribute navigation -->
                                     <div class="attr-nav" id="cartCount">
                                         <ul>
-                                            <%if(user == true){ %>
+                                            
                                             <li class="dropdown me-3 me-lg-0" >
                                                 <a href="/cart" class="" data-bs-toggle="">
                                                     <i class="ti-bag"></i>
@@ -94,14 +94,14 @@
                                                 </a>
                                                 
                                             </li>
-                                            <% }else{ %>
+<!--                                            
                                                 <li class="dropdown me-3 me-lg-0">
                                                     <a href="/login" class="" data-bs-toggle="">
                                                         <i class="ti-bag"></i>
                                                         <span class="badge bg-primary"></span>
                                                     </a>
                                                 </li>
-                                                <% } %>
+                                                 -->
                                             <li class="search"><a href="#"><i class="ti-search"></i></a></li>
                                         </ul>
                                     </div>
@@ -167,23 +167,7 @@
                             </div>
                         </div>
 
-                        <!-- <div class="widget">
-                            <div class="widget-title">
-                                <h5>Price Range</h5>
-                            </div>
-                            <input type="text" class="price-range" name="my_range" x="">
-                            <a href="#" class="butn-style2 small mt-1-9">Filter</a>
-                        </div>
-
-                        -->
-                        <!-- <span class="sort-by">Sort by</span>
-            <div class="ec-select-inner">
-              <select name="sort" id="sort">
-                <option selected disabled>Price</option>
-                <option value="low-to-high">Low to High</option>
-                <option value="high-to-low">High to Low</option>
-              </select>
-            </div> -->
+                        
 
                     </div>
                     <!-- end sidebar panel -->
@@ -222,7 +206,7 @@
                                                     <li><a onclick="addToWishlist('<%=x._id%>')" class="btn-link" title="Add To Wishlist"><i class="far fa-heart"></i></a></li>
                                                    
                                                     <% if(x.quantity > 0 ){ %>
-                                                        <li><a onclick="addToCart('<%=x._id%>')" " class="butn-style2" title="Add to Cart">Add to Cart</a></li>
+                                                        <li><a onclick="addToCart('<%=x._id%>')"  class="butn-style2" title="Add to Cart">Add to Cart</a></li>
                                                                 
                                                         <% }else{ %>
                                                             <button class="btn btn-danger"> Out Of Stock
@@ -432,34 +416,40 @@
     <script src="/users/js/main.js"></script>
 	
 	<!-- all js include end -->
-     <script>
+    <script>
         function addToWishlist(prodId){
             $.ajax({
-                url : '/addToWishlist',
+                url:'/addToWishlist',
                 data : {
                     productId : prodId
                 },
                 method : 'post',
-                success : (res)=>{
-                    if(res.status){
+
+                success : (res) =>{
+                    if(res.success){
                         Swal.fire({
+                            title : 'Added',
+                            text : 'product added to wishlist',
                             position : 'center',
                             icon : 'success',
-                            title : 'your product added to wishlist',
-                            showConfirmation : falsee,
+                            showConfirmButton : false,
                             timer : 1000
                         })
+                        
                     }else{
                         Swal.fire({
-                            icon : 'Error',
-                            title : 'Oops..',
-                            text : 'Item already exist'
+                            title : 'Already Exist',
+                            text : 'product already in wishlist',
+                            icon : 'info',
+                            showConfirmButton :false,
+                            timer:1000
                         })
                     }
                 }
             })
         }
      </script>
+
       <script>
         function addToCart(prodId){
             $.ajax({

@@ -176,11 +176,11 @@
           <div class="card mb-4">
             
             <div class="card-body">
-                <form  action="/admin/editCoupon?id=<%=couponData._id%>" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
+                <form  action="/admin/editCoupon?id=<%=couponData._id%>" method="post" class="needs-validation">
                     <div class="form-group">
                       <label for="">Coupon code</label>
                       <input type="text" class="form-control border pe-2 ps-2" id="" placeholder="coupon code" name="coupon_code" value="<%=couponData.couponCode%>" required>
-                      <div class="invalid-feedback">Please enter code</div>
+                      <div class="invalid-feedback">Please enter </div>
                     </div>
                     
                     <div class="form-check">
@@ -223,14 +223,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Start date</label>
-                                <input type="date" class="form-control border pe-2 ps-2" id="startdate" placeholder="start date" name="startdate" value="<%=formattedDate2 %>" required>
+                                <input type="date" class="form-control border pe-2 ps-2" id="startdate" placeholder="start date" name="startdate" value="<%=formattedDate1 %>" required>
                                 <div class="invalid-feedback">Please enter start date</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Expiry date</label>
-                                <input type="date" class="form-control border pe-2 ps-2" id="expirydate" placeholder="expiry date" name="expirydate" value="<%= formattedDate1 %>" required>
+                                <input type="date" class="form-control border pe-2 ps-2" id="expirydate" placeholder="expiry date" name="expirydate" value="<%= formattedDate2 %>" required>
                                 <div class="invalid-feedback">Please enter expiry date</div>
                             </div>
                         </div>
@@ -440,26 +440,7 @@
         </div>
 
     </div>
-<script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (() => {
-          'use strict';
-  
-  
-          const forms = document.querySelectorAll('.needs-validation');
-  
-  
-          Array.prototype.slice.call(forms).forEach((form) => {
-            form.addEventListener('submit', (event) => {
-              if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
-              }
-              form.classList.add('was-validated');
-            }, false);
-          });
-        })();
-      </script>
+
 
 
     <%- include('./layout/footer.ejs') %>

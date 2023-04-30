@@ -78,7 +78,7 @@ admin_route.get('/coupon',couponController.loadCoupon);
 admin_route.post('/add-coupon',couponController.addCoupon);
 admin_route.get('/editCoupon',couponController.editCoupon);
 admin_route.post('/editCoupon',couponController.updateCoupon);
-admin_route.get('/deleteCoupon',couponController.deleteCoupon);
+admin_route.get('/unlist-coupon',couponController.unlistcoupon)
 
 
 

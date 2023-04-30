@@ -192,11 +192,11 @@
                        
                             <div class="product-grid-four">
                                 <div class="product-img">
-                                    <a href="#"><img src="/users/img/product-categories/<%=value.image[0] %>" alt="..."></a>
+                                    <a href="/productDetails/<%= value._id %>"><img src="/users/img/product-categories/<%=value.image[0] %>" alt="..."></a>
                                     <div class="action-butn">
-                                        <a href="#!"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#!"><i class="ti-eye"></i></a>
-                                        <a href="#!"><i class="ti-heart"></i></a>
+                                        <a  onclick="addToCart('<%= value._id%>')" ><i class="ti-shopping-cart"></i></a>
+                                        <a href="/productDetails/<%= value._id %>"><i class="ti-eye"></i></a>
+                                        <a onclick="addToWishlist('<%= value._id%>')" ><i class="ti-heart"></i></a>
                                     </div>
                                 </div>
                                 <h3 class="h6"><a href="#"><%= value.name %></a></h3>
@@ -437,14 +437,77 @@
 
     </div>
 
-    <!-- BUY TEMPLATE
-    ================================================== -->
-    <div class="buy-theme alt-font d-none d-lg-inline-block"><a href="https://wrapbootstrap.com/theme/smartshop-multipurpose-ecommerce-template-WB0N7CT4D" target="_blank"><i class="fas fa-cart-plus"></i><span>Buy Template</span></a></div>
-
-    <div class="all-demo alt-font d-none d-lg-inline-block"><a href="https://www.chitrakootweb.com/contact.html" target="_blank"><i class="far fa-envelope"></i><span>Quick Question?</span></a></div>
-    
+   
     <!-- SCROLL TO TOP
     ================================================== -->
     <a href="#" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+
+    <script>
+        function addToWishlist(prodId){
+            $.ajax({
+                url:'/addToWishlist',
+                data : {
+                    productId : prodId
+                },
+                method : 'post',
+
+                success : (res) =>{
+                    if(res.success){
+                        Swal.fire({
+                            title : 'Added',
+                            text : 'product added to wishlist',
+                            position : 'center',
+                            icon : 'success',
+                            showConfirmButton : false,
+                            timer : 1000
+                        })
+                        
+                    }else{
+                        Swal.fire({
+                            title : 'Already Exist',
+                            text : 'product already in wishlist',
+                            icon : 'info',
+                            showConfirmButton :false,
+                            timer:1000
+                        })
+                    }
+                }
+            })
+        }
+     </script>
+     
+      <script>
+        function addToCart(prodId){
+            $.ajax({
+                url:'/addtocart',
+                data : {
+                    productId : prodId
+                },
+                method : 'post',
+
+                success : (res) =>{
+                    if(res.success){
+                        Swal.fire({
+                            title : 'Added',
+                            text : 'product added to cart',
+                            position : 'center',
+                            icon : 'success',
+                            showConfirmButton : false,
+                            timer : 1000
+                        })
+                        
+                    }else{
+                        Swal.fire({
+                            title : 'Already Exist',
+                            text : 'product already in cart',
+                            icon : 'info',
+                            showConfirmButton :false,
+                            timer:1000
+                        })
+                    }
+                }
+            })
+        }
+    </script>
 
     <%- include("./layout/footer.ejs") %>

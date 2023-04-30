@@ -203,9 +203,17 @@ const verifyOtp = async(req,res)=>{
 
 const landingPage = async(req,res) => {
     try{
-        const user = false
-        res.render('home',{user})
 
+        
+        const category = await Category.find({})
+        console.log(category);
+        const product = await Product.find({unlist:false})
+        const user = false
+       
+        const bannerData = await Banner.find({unlist:false})
+       
+        res.render('home',{user,product,category,bannerData,})
+    
     }catch(error){
         console.log(error.message);
     }
