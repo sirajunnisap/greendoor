@@ -310,88 +310,88 @@ const searchProducts = async(req,res)=>{
 }
 
 
-const loadShop = async (req, res) => {
-    try {
-      const category = req.query.categoryId;
-      const search = req.query.search || "";
-      const sort = req.query.sort || "";
-      console.log(category + " - " + search + " - " + sort);
-      let isRender = false;
-      let user = false
-      if(req.session.userId){
-        user=true
-      }
-      if (req.query.isRender) {
-        isRender = true;
-      }
+// const loadShop = async (req, res) => {
+//     try {
+//       const category = req.query.categoryId;
+//       const search = req.query.search || "";
+//       const sort = req.query.sort || "";
+//       console.log(category + " - " + search + " - " + sort);
+//       let isRender = false;
+//       let user = false
+//       if(req.session.userId){
+//         user=true
+//       }
+//       if (req.query.isRender) {
+//         isRender = true;
+//       }
   
-      const searchData = new String(search).trim();
+//       const searchData = new String(search).trim();
   
-      const query = {
-        is_delete: false,
-      };
+//       const query = {
+//         is_delete: false,
+//       };
   
-      let sortQuery = { price: 1 };
-      if (sort == "high-to-low") {
-        sortQuery = { price: -1 };
-      }
+//       let sortQuery = { price: 1 };
+//       if (sort == "high-to-low") {
+//         sortQuery = { price: -1 };
+//       }
   
-      if (search) {
-        query["$or"] = [
-          { product_name: { $regex: ".*" + searchData + ".*", $options: "i" } },
-        //   { description: { $regex: searchData, $options: "i" } },
-        ];
-      }
-      console.log(category);
-      if (category) {
+//       if (search) {
+//         query["$or"] = [
+//           { product_name: { $regex: ".*" + searchData + ".*", $options: "i" } },
+//         //   { description: { $regex: searchData, $options: "i" } },
+//         ];
+//       }
+//       console.log(category);
+//       if (category) {
  
-            query["$or"] = [{ category: category }];
+//             query["$or"] = [{ category: category }];
         
-      }
+//       }
   
-      const product = await Product.find(query).sort(sortQuery);
+//       const product = await Product.find(query).sort(sortQuery);
   
-      //console.log(product);
+//       //console.log(product);
   
-      const productsPerPage = 3;
-      const page = req.query.page || 1;
-      const startIndex = (page - 1) * productsPerPage;
-      const endIndex = startIndex + productsPerPage;
-      const pageProducts = product.slice(startIndex, endIndex);
-      const totalPages = Math.ceil(product.length / productsPerPage);
+//       const productsPerPage = 3;
+//       const page = req.query.page || 1;
+//       const startIndex = (page - 1) * productsPerPage;
+//       const endIndex = startIndex + productsPerPage;
+//       const pageProducts = product.slice(startIndex, endIndex);
+//       const totalPages = Math.ceil(product.length / productsPerPage);
       
-      // -----------Category finding
-      const categoryData = await Category.find({});
+//       // -----------Category finding
+//       const categoryData = await Category.find({});
       
   
-      // ----------------------
+//       // ----------------------
   
-      if (isRender == true) {
-        res.json({
-          pageProducts,
-          totalPages,
-          currentPage: parseInt(page, 10),
-          product,
-          user,
-          // cartCount,
-          // wishListCount
-        });
-      } else {
-        res.render("/shop", {
-          pageProducts,
-          totalPages,
-          currentPage: parseInt(page, 10),
-          product,
-          categoryData,
-          user,
-        });
-      }
-    } catch (error) {
-        res.render('users/500')
-      console.log(error.message);
-      console.log("------------------Product Page Section-----------");
-    }
-  };
+//       if (isRender == true) {
+//         res.json({
+//           pageProducts,
+//           totalPages,
+//           currentPage: parseInt(page, 10),
+//           product,
+//           user,
+//           // cartCount,
+//           // wishListCount
+//         });
+//       } else {
+//         res.render("/shop", {
+//           pageProducts,
+//           totalPages,
+//           currentPage: parseInt(page, 10),
+//           product,
+//           categoryData,
+//           user,
+//         });
+//       }
+//     } catch (error) {
+//         res.render('users/500')
+//       console.log(error.message);
+//       console.log("------------------Product Page Section-----------");
+//     }
+//   };
 
 
 module.exports={
@@ -411,7 +411,7 @@ module.exports={
     landingPage,
     loadLogout,
     searchProducts,
-    loadShop
+    // loadShop
     // findCategoryProduct
 }
 
