@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/ums');
+// mongoose.connect('mongodb://127.0.0.1:27017/ums');
+require('dotenv').config();
 
+const MONGOOSE_CONNECT = process.env.MONGOOSE_CONNECT
+mongoose.connect(MONGOOSE_CONNECT)
 
 const express = require('express');
 const app = express();
 
-require('dotenv').config();
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
