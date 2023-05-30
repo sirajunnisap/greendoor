@@ -73,13 +73,11 @@ user_route.get('/logout',userController.loadLogout)
 //Search.....
 user_route.post('/getProducts',userController.searchProducts)
 
-// //categotyManagement
 
-// user_route.get('/categories',userController.loadCategories)
-// user_route.get('/ctrypdt',userController.findCategoryProduct);
+
 
 //product
-// user_route.get('/products',productController.product_view);
+
 user_route.get('/products',productController.loadProducts)
 user_route.get('/productDetails/:id',productController.productDetail);
 user_route.get('/shopCategory/:id',productController.loadShopCategory);
@@ -90,7 +88,7 @@ user_route.get('/shopCategory/:id',productController.loadShopCategory);
 user_route.get('/wishlist',wishlistController.loadWishlist);
 user_route.post('/addToWishlist',wishlistController.addToWishlist);
 user_route.post('/deleteWishlist',wishlistController.deleteWishlistPdct);
-// user_route.post('/wishlistToCart',productController.wishlistToCart);
+
 
 // //cart
 user_route.get('/cart',auth.isLogin,cartController.showCart);
